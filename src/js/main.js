@@ -16,7 +16,7 @@ io.on('connection', function(socket){
     });
 });
 
-http.listen(port, function () {
+http.listen(port, 'localhost' , function () {
     console.log('listening on *:' + port);
 });
 

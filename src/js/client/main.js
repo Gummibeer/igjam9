@@ -39,8 +39,8 @@ var IggjGame = function () {
         });
     };
 
-    var _createStartScreen = function () {
-        return new IggjStartScreen();
+    var _createStartScreen = function (stageHandler, eventHandler) {
+        return new IggjStartScreen(stageHandler, eventHandler);
     };
 
     _init();
