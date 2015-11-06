@@ -1,4 +1,6 @@
-html, body, #mainStage {
+html,
+body,
+#main-stage {
     width: 100%;
     height:100%;
 }
