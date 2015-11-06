@@ -12,6 +12,7 @@ io.on('connection', function(socket){
 
     socket.on('joinLobby', function(name){
         console.log('user joined lobby: ' + name);
+        socket.emit('userList', { user: 'HansWurst' })
     });
 });
 
