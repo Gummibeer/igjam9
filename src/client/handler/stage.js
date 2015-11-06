@@ -8,7 +8,7 @@ var IggjStageHandler = function () {
     };
 
     var _displayObjectOnStage = function ($screenObject) {
-        _currentDisplayObject.remove();
+        _currentDisplayObject && _currentDisplayObject.remove();
         _stage.append($screenObject);
     };
 
