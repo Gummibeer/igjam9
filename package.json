@@ -2,5 +2,7 @@
   "name": "iggj9-project",
   "description": "the powerful panda productions iggj #9 project - strange rituals",
   "version": "0.1.0",
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.10.2"
+  }
 }
