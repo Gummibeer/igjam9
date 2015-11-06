@@ -4,7 +4,7 @@ var http = require('http').Server(app);
 var port = 666;
 
 app.get('/', function (req, res) {
-    res.sendFile(__dirname + '/../../index.html');
+    res.sendFile(__dirname + '/html/index.html');
 });
 
 http.listen(port, function () {
