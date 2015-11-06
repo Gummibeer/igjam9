@@ -12,6 +12,7 @@ io.on('connection', function(socket){
 
     socket.on('joinLobby', function(name){
         console.log('user joined lobby: ' + name);
+        socket.emit('userList', { user: 'HansWurst' })
     });
 });
 
@@ -21,4 +22,13 @@ http.listen(port, function () {
 
 app.get('/', function (req, res) {
     res.sendFile(__dirname + '/html/index.html');
+});
+app.get('/jquery', function (req, res) {
+    res.sendFile(__dirname + '/libs/jquery-1.11.3.min.js');
+});
+app.get('/socketio', function (req, res) {
+    res.sendFile(__dirname + '/libs/socket.io-1.3.7.min.js');
+});
+app.get('/main', function (req, res) {
+    res.sendFile(__dirname + '/client/main.js');
 });
