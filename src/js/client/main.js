@@ -14,7 +14,7 @@ var IggjGame = function () {
     };
 
     var _startGame = function () {
-        var startScreen = _createStartScreen();
+        var startScreen = _createStartScreen(_stageHandler, _eventHandler);
         _eventHandler.subscribe('startScreenFinished', function () {
             startScreen.destroy();
             _createLobby();
@@ -24,7 +24,7 @@ var IggjGame = function () {
     var _createLobby = function () {
         var lobbyScreen = new IggjLobbyScreen();
         var socket = _networkSocket.getNetworkSocket();
-        socket.on('initGame', function (data) {
+        socket.on('initGame', function () {
             lobbyScreen.destroy();
             _createGameScreen();
         });
@@ -32,7 +32,8 @@ var IggjGame = function () {
 
     var _createGameScreen = function () {
         var game = new IggjGameScreen(_networkSocket);
-        game.on('gameOver', function () {
+        var socket = _networkSocket.getNetworkSocket();
+        socket.on('gameOver', function () {
             game.destroy();
             _createLobby();
         });
