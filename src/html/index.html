@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>PPP - IGGJ #9</title>
+    <script src="src/libs/jquery-1.11.3.min.js"></script>
+    <script src="src/libs/socket.io-1.3.7.min.js"></script>
+    <script src="src/client/main.js"></script>
+    <script src="src/client/networkHandler.js"></script>
+    <script src="src/client/stageHandler.js"></script>
+    <script src="src/client/eventHandler.js"></script>
+</head>
+<body>
+    <div id="main-stage"></div>
+    <script>
+        $(window).load(function () {
+            console.log('document ready: starting game!');
+            new IggjGame();
+        });
+    </script>
+</body>
+</html>

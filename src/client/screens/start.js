@@ -1,10 +1,10 @@
-var IggjStartScreen = function(stageHandler, eventHandler) {
+var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _startScreen;
     var KEY_ENTER = 13;
 
-    var _init = function() {
-        if(localStorage.getItem('username')) {
+    var _init = function () {
+        if (localStorage.getItem('username')) {
             eventHandler.publish('startScreenFinished');
         } else {
             _createStartScreen();
@@ -12,7 +12,7 @@ var IggjStartScreen = function(stageHandler, eventHandler) {
         }
     };
 
-    var _createInput = function() {
+    var _createInput = function () {
         var input = document.createElement('input');
         input.setAttribute('id', 'input-username');
         input.setAttribute('type', 'text');
@@ -32,14 +32,14 @@ var IggjStartScreen = function(stageHandler, eventHandler) {
         return input;
     };
 
-    var _createInputDiv = function() {
+    var _createInputDiv = function () {
         var inputDiv = document.createElement('div');
         inputDiv.style.position = 'relative';
         inputDiv.style.top = '50%';
         return inputDiv;
     };
 
-    var _createHolder = function() {
+    var _createHolder = function () {
         var holder = document.createElement('div');
         holder.style.position = 'absolute';
         holder.style.height = '100%';
@@ -48,7 +48,7 @@ var IggjStartScreen = function(stageHandler, eventHandler) {
         return holder;
     };
 
-    var _createStartScreen = function() {
+    var _createStartScreen = function () {
         var input = _createInput();
         var inputDiv = _createInputDiv()
         _startScreen = _createHolder();
@@ -57,7 +57,8 @@ var IggjStartScreen = function(stageHandler, eventHandler) {
         _startScreen = $(_startScreen);
     };
 
-    this.destroy = function() {};
+    this.destroy = function () {
+    };
 
     _init();
 };

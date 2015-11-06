@@ -1,3 +1,3 @@
-IggjLobbyScreen = function() {
+IggjLobbyScreen = function () {
     console.log('CREATE LOBBY');
 };
