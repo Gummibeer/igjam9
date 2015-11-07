@@ -128,7 +128,7 @@ io.on('connection', function (socket) {
     });
 
     socket.on('itemSelected', function (data) {
-        matches[data.match].responded.push(socket.id);
+        matches[data.match].responded++;
         console.log(helpers.prefix() + colors.debug('user %s from match %s has used item #%s'), socket.id, data.match, data.itemId);
         matches[data.match].items.splice(matches[data.match].items.indexOf(''+data.itemId), 1);
         console.log('mop',matches[data.match].questions[0]);
