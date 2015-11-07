@@ -79,11 +79,12 @@ io.on('connection', function (socket) {
             item.collection.random(),
             item.collection.random()
         ];
-        var itemIds = user1Items.map(function (item) {
-            return item.id;
-        }).concat(user2Items.map(function (item) {
-            return item.id;
+        var itemIds = [].concat(user2Items.map(function (item) {
+            return ''+item.id;
+        }), user1Items.map(function (item) {
+            return ''+item.id;
         }));
+        console.log(itemIds);
 
         matches[room] = {
             ready: 0, // number of ready users - if it's 2 we can start a round
@@ -111,7 +112,7 @@ io.on('connection', function (socket) {
             io.to(matchId).emit('startRound', true);
             console.log(helpers.prefix() + colors.debug('start new round in match %s'), matchId);
             setTimeout(function () {
-                if(matches[matchId].responded < 2) {
+                if (matches[matchId].responded < 2) {
                     matches[matchId].success = false;
                 }
                 io.to(matchId).emit('endRound', matches[matchId].success);
@@ -121,11 +122,14 @@ io.on('connection', function (socket) {
     });
 
     socket.on('itemSelected', function (data) {
-        // data.match & data.itemId
         matches[data.match].responded.push(socket.id);
         console.log(helpers.prefix() + colors.debug('user %s from match %s has used item #%s'), socket.id, data.match, data.itemId);
+        matches[data.match].items.splice(matches[data.match].items.indexOf(''+data.itemId), 1);
         // TODO: check for right item
-        socket.emit('newItem', {item: item.collection.random()});
+        var newItem = item.collection.random();
+        matches[data.match].items.push(''+newItem.id);
+        console.log(matches[data.match].items);
+        socket.emit('newItem', {item: newItem});
     });
 });
 
