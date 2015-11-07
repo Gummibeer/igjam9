@@ -100,6 +100,8 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
             $('#request-screen-ok-btn').show();
             $('#request-screen-cancel-btn').show();
         } else {
+            $('#request-screen-ok-btn').hide();
+            $('#request-screen-cancel-btn').hide();
             $('#request-screen-player-id').text('Frage Spiel bei Spieler ' + name + ' an.').append('<div><i class="fa fa-2x fa-spinner fa-pulse"></i></div>');
         }
         _$overlay.show();
