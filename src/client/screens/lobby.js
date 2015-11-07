@@ -45,7 +45,6 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _onPlayerLogoutClick = function () {
         console.log('logout and destroy session');
-        localStorage.removeItem('username');
         _socket.emit('disconnect');
     };
 
@@ -119,6 +118,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _onDisconnected = function () {
         console.log('Disconnected / Kicked');
+        localStorage.removeItem('username');
         location.reload();
     };
 
