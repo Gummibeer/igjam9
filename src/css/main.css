@@ -51,6 +51,7 @@ body,
 
 #request-screen {
     position: absolute;
+    z-index: 1010;
     top: 10%;
     margin-left: 25%;
     width: 50%;
