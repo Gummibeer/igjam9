@@ -1,0 +1,4 @@
+IggjItem = {
+    id: null,
+    img: ''
+};
