@@ -28,7 +28,7 @@ io.on('connection', function (socket) {
     socket.on('disconnect', function () {
         socket.leave('lobby');
         delete users[socket.id];
-        io.to('lobby').emit('userList', { usersList: helpers.getUsersList(users) });
+        io.to('lobby').emit('userList', {usersList: helpers.getUsersList(users)});
         console.log(helpers.prefix() + colors.magenta('user disconnected %s'), socket.id);
         console.log(helpers.prefix() + colors.debug('now are %s users on the server'), Object.keys(users).length);
     });
@@ -38,17 +38,17 @@ io.on('connection', function (socket) {
         console.log(helpers.prefix() + colors.green('user joined lobby %s - %s'), socket.id, name);
         users[socket.id].name = name;
         users[socket.id].status = 1;
-        io.to('lobby').emit('userList', { usersList: helpers.getUsersList(users) });
+        io.to('lobby').emit('userList', {usersList: helpers.getUsersList(users)});
     });
 
     socket.on('requestGame', function (id) {
         console.log(helpers.prefix() + colors.debug('user %s has requested a game against %s'), socket.id, id);
-        users[id].socket.emit('gameRequest', { userData: helpers.getUserData(users[socket.id]) });
+        users[id].socket.emit('gameRequest', {userData: helpers.getUserData(users[socket.id])});
     });
 
     socket.on('abortRequest', function (id) {
         console.log(helpers.prefix() + colors.debug('user %s has aborted the game requested from %s'), socket.id, id);
-        users[id].socket.emit('requestAborted', { userData: helpers.getUserData(users[socket.id]) });
+        users[id].socket.emit('requestAborted', {userData: helpers.getUserData(users[socket.id])});
     });
 
     socket.on('acceptRequest', function (id) {
@@ -81,10 +81,10 @@ app.get(/src\/(.*)/, function (req, res) {
 
 // CONSOLE
 var stdin = process.openStdin();
-stdin.addListener('data', function(d) {
+stdin.addListener('data', function (d) {
     var str = d.toString().trim();
     console.log(colors.debug('your command: %s'), str);
-    switch(str) {
+    switch (str) {
         case '/userlist':
             console.log(helpers.c.getUsersNameList(users));
             break;
