@@ -17,7 +17,9 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     var _initListeners = function() {
-
+        eventHandler('itemClicked').subscribe(function(itemId){
+            _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
+        });
     };
 
     var _createGameScreenElements = function () {
@@ -32,8 +34,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         $.each(itemData,function(key, value){
             _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
         });
-
-        _wizardHolder = new IggjWizardsHolder();
+        _wizardHolder = new IggjWizardsHolder(eventHandler);
         _spellCrank = new IggjSpellCrank();
         _$gameMain.append(_wizardHolder.$getWizardsHolder());
         _$gameMain.append(_itemHolder.$getShelf());

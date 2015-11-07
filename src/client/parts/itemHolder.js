@@ -1,4 +1,4 @@
-var ItemHolder =  function() {
+var ItemHolder =  function(eventHandler) {
 
     var $shelf = null;
 
@@ -28,11 +28,12 @@ var ItemHolder =  function() {
 
     var _onItemClick = function() {
         console.log('removing item with id', $(this).attr('item-id'));
+        var iid = $(this).attr('item-id');
         $(this).attr('data-empty', true);
         $(this).css('background-Image', 'none');
         $(this).removeAttr('item-id');
         $(this).off('click', _onItemClick);
-        //tell server wich item has bin clicked
+        eventHandler('itemClicked').publish(iid);
     };
 
     _init();
