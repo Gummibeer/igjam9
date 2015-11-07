@@ -4,6 +4,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     var _$mainContainer = null;
     var _$playerList = null;
     var _$playerName = null;
+    var _$playerLogout = null;
     var _$requestScreen = null;
     var _$overlay = null;
     var _myName = '';
@@ -31,13 +32,21 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
         _$mainContainer = $('<div id="lobby-main"></div>');
         _$playerList = $('<div id="lobby-player-list"></div>');
         _$playerName = $('<div id="lobby-player-name"></div>');
+        _$playerLogout = $('<i id="lobby-player-logout" class="fa fa-power-off btn"></i>').on('click', _onPlayerLogoutClick);
         _createRequestScreen();
         _$mainContainer.append(_$playerName);
+        _$mainContainer.append(_$playerLogout);
         _$mainContainer.append(_$playerList);
         _$mainContainer.append(_$overlay);
         _$overlay.hide();
         _$playerName.text('Dein Player-Name ist: ' + _myName);
         stageHandler.changeScreen(_$mainContainer);
+    };
+
+    var _onPlayerLogoutClick = function () {
+        console.log('logout and destroy session');
+        localStorage.removeItem('username');
+        _socket.emit('disconnect');
     };
 
     var _createRequestScreen = function () {
@@ -110,7 +119,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _onDisconnected = function () {
         console.log('Disconnected / Kicked');
-        // TODO: do something usefull here
+        location.reload();
     };
 
     this.destroy = function () {
