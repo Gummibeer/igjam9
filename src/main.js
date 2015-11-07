@@ -207,15 +207,16 @@ item.collection.add(12, 'Gremmlin Head', 'src/img/12.png');
 item.collection.add(13, 'Sukkubus Ass', 'src/img/13.png');
 
 // QUESTIONS
-question.collection.add(1, 'Wirf Item #1 in den Topf', 1);
-question.collection.add(2, 'Wirf Item #2 in den Topf', 2);
-question.collection.add(3, 'Wirf Item #3 in den Topf', 3);
-question.collection.add(4, 'Wirf Item #4 in den Topf', 4);
-question.collection.add(5, 'Wirf Item #5 in den Topf', 5);
-question.collection.add(6, 'Wirf Item #6 in den Topf', 6);
-question.collection.add(7, 'Wirf Item #7 in den Topf', 7);
-question.collection.add(8, 'Wirf Item #8 in den Topf', 8);
-question.collection.add(9, 'Wirf Item #9 in den Topf', 9);
-question.collection.add(10, 'Wirf Item #10 in den Topf', 10);
-question.collection.add(11, 'Wirf Item #11 in den Topf', 11);
-question.collection.add(12, 'Wirf Item #12 in den Topf', 12);
+question.collection.add(1, 'Add some Silver', 1);
+question.collection.add(2, 'Add a pinch of Gold Powder', 2);
+question.collection.add(3, 'Add one ordinary Chicken Feet', 3);
+question.collection.add(4, 'Add a touch of Dragon-Blood', 4);
+question.collection.add(5, 'Add one bound of fresh Cthulu-Tentacles', 5);
+question.collection.add(6, 'Add a fresh removed Vampire-Head', 6);
+question.collection.add(7, 'Add one Human Skull', 7);
+question.collection.add(8, 'Add an expensive Aquamarin', 8);
+question.collection.add(9, 'Add one rare Rubin', 9);
+question.collection.add(10, 'Add a delicous Sukkubus-Wing', 10);
+question.collection.add(11, 'Add a knocked out Vampire Tooth', 11);
+question.collection.add(12, 'Add a fresh cutted Gremmlin Head', 12);
+question.collection.add(13, 'Add an odd Sukkubus-Ass', 13);
