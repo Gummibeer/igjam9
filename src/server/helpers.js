@@ -39,5 +39,11 @@ exports.c = {
             var user = users[key];
             return user.name + ' @ ' + user.id + ' [' + user.status + ']' + '\n';
         }).join('');
+    },
+    getOpenMatchesList: function (matches) {
+        return Object.keys(matches).map(function (key) {
+            var match = matches[key];
+            return key + ' - ' + match.users.join(' vs ') + '\n';
+        }).join('');
     }
 };
