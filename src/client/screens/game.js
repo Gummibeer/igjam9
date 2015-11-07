@@ -20,6 +20,15 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         eventHandler('itemClicked').subscribe(function(itemId){
             _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
         });
+
+        _socket.on('newItem',function(value){
+            _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
+        });
+        _socket.on('roundEnded',_onRoundEnded);
+    };
+
+    var _onRoundEnded = function(bool) {
+        console.log('round result :', bool)
     };
 
     var _createGameScreenElements = function () {
