@@ -35,7 +35,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     var _onRoundStarted = function(data) {
-
+        _taskBar.setTask(data.task);
     };
 
     var _createGameScreenElements = function () {
