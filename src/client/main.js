@@ -22,7 +22,7 @@ var IggjGame = function () {
     };
 
     var _createLobby = function () {
-        var lobbyScreen = new IggjLobbyScreen();
+        var lobbyScreen = new IggjLobbyScreen(_stageHandler, _eventHandler, _networkSocket);
         var socket = _networkSocket.getNetworkSocket();
         socket.on('initGame', function () {
             lobbyScreen.destroy();

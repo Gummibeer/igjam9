@@ -1,6 +1,41 @@
+
+
 html,
 body,
+#lobby-main,
 #main-stage {
     width: 100%;
     height: 100%;
+}
+
+#lobby-main {
+
+}
+
+#lobby-player-list {
+
+}
+
+#lobby-player-name {
+
+}
+
+#request-screen {
+
+}
+
+#request-screen-player-id {
+
+}
+
+#request-screen-ok-btn {
+
+}
+
+#request-screen-cancel-btn {
+
+}
+
+.player-list-item {
+
 }
