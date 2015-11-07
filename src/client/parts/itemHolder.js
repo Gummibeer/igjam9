@@ -1,6 +1,7 @@
 var ItemHolder =  function(eventHandler) {
 
     var $shelf = null;
+    this.allowedToClick = true;
 
     var _init = function() {
         $shelf = $('<div id="game-itemholder"></div>');
@@ -27,13 +28,18 @@ var ItemHolder =  function(eventHandler) {
     };
 
     var _onItemClick = function() {
-        console.log('removing item with id', $(this).attr('item-id'));
-        var iid = $(this).attr('item-id');
-        $(this).attr('data-empty', true);
-        $(this).css('background-Image', 'none');
-        $(this).removeAttr('item-id');
-        $(this).off('click', _onItemClick);
-        eventHandler('itemClicked').publish(iid);
+        if(this.allowedToClick) {
+            console.log('removing item with id', $(this).attr('item-id'));
+            var iid = $(this).attr('item-id');
+            $(this).attr('data-empty', true);
+            $(this).css('background-Image', 'none');
+            $(this).removeAttr('item-id');
+            $(this).off('click', _onItemClick);
+            eventHandler('itemClicked').publish(iid);
+        } else {
+            alert('You have made your decision this round!!!');
+        }
+
     };
 
     _init();

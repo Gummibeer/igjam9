@@ -129,6 +129,11 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
         _socket.off('userList', _onLobbyJoined);
         _socket.off('requestAborted', _onRequestAborted);
         _socket.off('gameRequest', _onGameRequest);
+        _socket.off('disconnect', _onDisconnected);
+        _socket.off('userList');
+        _socket.off('requestAborted');
+        _socket.off('gameRequest');
+        _socket.off('disconnect');
     };
 
     _init();

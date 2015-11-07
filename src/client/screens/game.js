@@ -8,8 +8,9 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _socket = null;
     var _myId = null;
     var _madeADecisonThisRound = false;
+    var that = this;
 
-    //TODO: nur einmal klickbar pro round
+    //TODO: nur einmal klickbar pro round (ckeck)
     //TODO: golem zusammen bauen (check)
     //TODO:matchEnded senden return to Lobby (check)
 
@@ -25,13 +26,27 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
     var _initListeners = function() {
         eventHandler('itemClicked').subscribe(function(itemId){
-            _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
+            if(!_madeADecisonThisRound){
+                _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
+                _madeADecisonThisRound = true;
+                _itemHolder.allowedToClick = false;
+            }
         });
 
         eventHandler('gameOver').subscribe(function(){
             console.log('gameJS received game over');
             _socket.emit('gameEnded', gameData.match);
-            eventHandler('returnToLobby').publish();
+            _showGameOver(function(){
+                eventHandler('returnToLobby').publish();
+            });
+        });
+
+        eventHandler('gameOver').subscribe(function() {
+            console.log('gameJS received game won');
+            _socket.emit('gameEnded', gameData.match);
+            _showGameWon(function(){
+                eventHandler('returnToLobby').publish();
+            });
         });
 
         _socket.on('newItem',function(value){
@@ -39,6 +54,24 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
         _socket.on('endRound',_onRoundEnded);
         _socket.on('startRound',_onRoundStarted);
+    };
+
+    var _showGameOver = function(callback) {
+        _$gameMain.remove();
+        that.destroy();
+        var $gameOver = $('<div id="game-over"></div>');
+        $gameOver.css('background-image', 'url(src/img/bg_loose.jpg)')
+        stageHandler.changeScreen($gameOver);
+        setTimeout(callback, 5000);
+    };
+
+    var _showGameWon = function(callback) {
+        _$gameMain.remove();
+        that.destroy();
+        var $gameWon = $('<div id="game-won"></div>');
+        $gameWon.css('background-image', 'url(src/img/bg_win.jpg)')
+        stageHandler.changeScreen($gameWon);
+        setTimeout(callback, 5000);
     };
 
     var _onRoundEnded = function(roundResult) {
@@ -52,6 +85,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     var _onRoundStarted = function(data) {
+        _madeADecisonThisRound = false;
+        _itemHolder.allowedToClick = true;
         _taskBar.setTask(data.task.message);
     };
 
