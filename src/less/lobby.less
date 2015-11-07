@@ -1,15 +1,16 @@
 #lobby-main {
   position: relative;
-  background-color: black;
   width: 100%;
   height: 100%;
+  background: url(../img/bg_lobby.jpg) no-repeat center top;
+  background-size: cover;
 }
 
 fieldset#lobby-player-list {
   margin: 0 auto;
   width: 50%;
   height: 50%;
-  max-width: 500px;
+  max-width: 600px;
   border: 1px solid @highlight;
   color: @highlight;
 
@@ -52,4 +53,20 @@ fieldset#lobby-player-list {
 #request-screen-cancel-btn {
   color: @white;
   font-family: inherit;
+}
+
+img#logo {
+  max-width: 400px;
+  margin: 0 auto;
+  display: block;
+}
+
+#lobby-player-logout {
+  background: url(../img/btn_exit.png) no-repeat;
+  background-size: contain;
+  width: 80px;
+  height: 40px;
+  float: right;
+  margin-top: 50px;
+  margin-right: 100px;
 }
