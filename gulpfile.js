@@ -11,3 +11,7 @@ gulp.task('less', function () {
         .pipe(minifyCSS())
         .pipe(gulp.dest('./src/css'));
 });
+
+gulp.task('watch', function () {
+    gulp.watch('src/less/**/*.less', ['less']);
+});
