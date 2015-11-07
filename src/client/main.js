@@ -31,6 +31,7 @@ var IggjGame = function () {
     };
 
     var _createGameScreen = function () {
+        console.log('start game screen')
         var game = new IggjGameScreen(_networkSocket);
         var socket = _networkSocket.getNetworkSocket();
         socket.on('gameOver', function () {
