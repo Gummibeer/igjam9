@@ -24,7 +24,9 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         input.setAttribute('id', 'input-username');
         input.setAttribute('type', 'text');
         input.setAttribute('placeholder', 'enter name');
+        input.setAttribute('autofocus', true);
         input.setAttribute('novalidate', true);
+        input.setAttribute('maxlength', '30');
         input.style.display = 'block';
         input.style.margin = 'auto';
         input.addEventListener('keypress', function (e) {
@@ -39,10 +41,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _createInputDiv = function () {
         var inputDiv = document.createElement('div');
-        inputDiv.style.position = 'relative';
-        inputDiv.style.top = '50px';
-        inputDiv.style.margin = '0 auto';
-        inputDiv.style.maxWidth = '600px';
+        inputDiv.setAttribute('id', 'input-holder');
         return inputDiv;
     };
 
@@ -77,9 +76,8 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
                             setTimeout(function() {
                                 _startScreen.style.backgroundImage = 'url(../../src/img/bg_username.jpg)';
                                 _startScreen.style.boxShadow = 'none';
-                                inputDiv.appendChild(logo);
-                                inputDiv.appendChild(input);
-                                _startScreen.appendChild(inputDiv);
+                                _startScreen.appendChild(logo);
+                                _startScreen.appendChild(input);
                                 _startScreen = $(_startScreen);
                             }, 1000); // BLACK => LOGIN
                         }, FRAME_DURATION); // 3 => BLACK

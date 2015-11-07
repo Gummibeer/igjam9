@@ -40,8 +40,8 @@ var IggjGame = function () {
         });
     };
 
-    var _createStartScreen = function (stageHandler, eventHandler) {
-        return new IggjStartScreen(stageHandler, eventHandler);
+    var _createStartScreen = function (_stageHandler, _eventHandler) {
+        return new IggjStartScreen(_stageHandler, _eventHandler);
     };
 
     _init();
