@@ -25,17 +25,19 @@ io.on('connection', function (socket) {
     console.log(helpers.prefix() + colors.debug('now are %s users on the server'), Object.keys(users).length);
 
     socket.on('disconnect', function () {
+        socket.leave('lobby');
         delete users[socket.id];
-        io.emit('userList', { usersList: helpers.getUsersList(users) });
+        io.to('lobby').emit('userList', { usersList: helpers.getUsersList(users) });
         console.log(helpers.prefix() + colors.magenta('user disconnected %s'), socket.id);
         console.log(helpers.prefix() + colors.debug('now are %s users on the server'), Object.keys(users).length);
     });
 
     socket.on('joinLobby', function (name) {
+        socket.join('lobby');
         console.log(helpers.prefix() + colors.green('user joined lobby %s - %s'), socket.id, name);
         users[socket.id].name = name;
         users[socket.id].status = 1;
-        io.emit('userList', { usersList: helpers.getUsersList(users) });
+        io.to('lobby').emit('userList', { usersList: helpers.getUsersList(users) });
     });
 
     socket.on('requestGame', function (id) {
