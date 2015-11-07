@@ -24,6 +24,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
         _socket.on('userList', _onLobbyJoined);
         _socket.on('requestAborted', _onRequestAborted);
         _socket.on('gameRequest', _onGameRequest);
+        _socket.on('disconnect', _onDisconnected);
     };
 
     var _createUI = function () {
@@ -90,7 +91,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
             $('#request-screen-ok-btn').show();
             $('#request-screen-cancel-btn').show();
         } else {
-            $('#request-screen-player-id').text('Frage Spiel bei Spieler ' + name + ' an.').after('<div><i class="fa fa-3x fa-spinner fa-pulse"></i></div>');
+            $('#request-screen-player-id').text('Frage Spiel bei Spieler ' + name + ' an.').append('<div><i class="fa fa-2x fa-spinner fa-pulse"></i></div>');
         }
         _$overlay.show();
         setTimeout(function () {
@@ -105,6 +106,11 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     var _joinLobby = function () {
         console.log('Request Lobby Login');
         _socket.emit('joinLobby', _myName);
+    };
+
+    var _onDisconnected = function () {
+        console.log('Disconnected / Kicked');
+        // TODO: do something usefull here
     };
 
     this.destroy = function () {

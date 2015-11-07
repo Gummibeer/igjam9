@@ -83,10 +83,29 @@ app.get(/src\/(.*)/, function (req, res) {
 var stdin = process.openStdin();
 stdin.addListener('data', function (d) {
     var str = d.toString().trim();
+    var parts = str.split(' ');
+    parts[0] = parts[0].trim();
     console.log(colors.debug('your command: %s'), str);
-    switch (str) {
+    switch (parts[0]) {
         case '/userlist':
             console.log(helpers.c.getUsersNameList(users));
+            break;
+        case '/userkick':
+            parts[1] = parts[1].trim();
+            if(Object.keys(users).indexOf(parts[1]) !== -1) {
+                users[parts[1]].socket.disconnect();
+                console.log(helpers.prefix() + colors.info('kicked user %s'), parts[1]);
+            } else {
+                console.log(colors.error('es gibt keinen user mit der ID'));
+            }
+            break;
+        case '/kickall':
+            for (var id in users) {
+                if (users.hasOwnProperty(id)) {
+                    users[id].socket.disconnect();
+                    console.log(helpers.prefix() + colors.info('kicked user %s'), id);
+                }
+            }
             break;
         default:
             console.log(colors.error('das ist kein command'));
