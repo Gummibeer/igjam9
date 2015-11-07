@@ -49,14 +49,18 @@ body,
     background: rgba(0, 0, 0, 0.5);
 }
 
-#request-screen {
+.modal {
     position: absolute;
     z-index: 1010;
     top: 10%;
     margin-left: 25%;
     width: 50%;
     height: 60%;
-    background-color: #444444;
+    background-color: #262626;
+    border-radius: 5px;
+}
+
+#request-screen {
 }
 
 #request-screen-player-id {
