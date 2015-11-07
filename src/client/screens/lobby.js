@@ -64,20 +64,21 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
             if( value.id !== _socket.id){
                 var $user = $('<div class="player-list-item">' + value.name + '</div>');
                 $user.on('click', function(){
-                    _onUserItemClick(value.id);
+                    _onUserItemClick(value.id, value.name);
                 });
                 _$playerList.append($user);
             }
         });
     };
 
-    var _onUserItemClick = function (id) {
-        console.log('requesting game with user ' + id);
+    var _onUserItemClick = function (id, name) {
+        console.log('requesting game with user ' + id + ' and name ' + name);
         _socket.emit('requestGame',id);
-        _showRequestScreen(false);
+        _showRequestScreen(false, name);
     };
 
     var _showRequestScreen = function (isRequested) {
+        $('request-screen-player-id').text('Frage Spiel bei Spieler ' + name + 'an.');
         if(isRequested){
             $('#request-screen-ok-btn').show();
             $('#request-screen-cancel-btn').show();
