@@ -12,7 +12,7 @@ var IggjSpellCrank = function() {
     };
 
     var _createSpellCrank = function() {
-        _$mainContainer = $('<div id="spellCrank"></div>');
+        _$mainContainer = $('<div id="spell-crank"></div>');
         _$mainContainer.on('click', function () {
             _nextBackground();
         });
@@ -47,7 +47,7 @@ var IggjSpellCrank = function() {
         _crankEndTime = new Date().getTime()+time*1000;
     }
 
-    this.getSpellCrank = function() {
+    this.$getSpellCrank = function() {
         return _$mainContainer;
     };
 
