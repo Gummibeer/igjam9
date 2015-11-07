@@ -20,6 +20,7 @@ console.log('starting game server');
 io.on('connection', function (socket) {
     users[socket.id] = new user.model('', socket, 0);
     users[socket.id].id = socket.id;
+    users[socket.id].socket = socket;
     console.log(colors.info('user connected %s'), socket.id);
     console.log(colors.debug('now are %s users on the server'), Object.keys(users).length);
 
