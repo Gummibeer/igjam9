@@ -42,6 +42,11 @@ io.on('connection', function (socket) {
         console.log(colors.debug('user %s has requested a game against %s'), socket.id, id);
         users[id].socket.emit('gameRequest', { userData: helpers.getUserData(users[socket.id]) });
     });
+
+    socket.on('abortRequest', function (id) {
+        console.log(colors.debug('user %s has aborted the game requested from %s'), socket.id, id);
+        users[id].socket.emit('requestAborted', { userData: helpers.getUserData(users[socket.id]) });
+    });
 });
 
 http.listen(port, function () {
