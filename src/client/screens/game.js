@@ -24,11 +24,17 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _socket.on('newItem',function(value){
             _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
         });
-        _socket.on('roundEnded',_onRoundEnded);
+        _socket.on('endRound',_onRoundEnded);
+        _socket.on('startRound',_onRoundStarted);
     };
 
     var _onRoundEnded = function(bool) {
         console.log('round result :', bool)
+        _socket.emit('waitingForRound',gameData.match);
+    };
+
+    var _onRoundStarted = function(data) {
+
     };
 
     var _createGameScreenElements = function () {
