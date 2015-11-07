@@ -39,7 +39,6 @@ var IggjSpellCrank = function() {
     };
 
     var _startInterval = function() {
-        console.log('interval');
         _interval = setInterval(_nextBackground, INTERVAL);
     };
 

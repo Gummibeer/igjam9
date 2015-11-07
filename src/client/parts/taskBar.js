@@ -27,4 +27,5 @@ var IggjTaskBar = function() {
     };
 
     _init();
+
 };
