@@ -6,11 +6,13 @@ var helpers = require('./server/helpers.js');
 
 var user = require('./server/models/user.js');
 var item = require('./server/models/item.js');
+var question = require('./server/models/question.js');
 
 console.log(helpers.prefix() + 'starting game server');
 
-var port = 63350; //63350;
+var port = 666; //63350;
 var users = {};
+var matches = {};
 
 colors.setTheme({
     info: 'cyan',
@@ -65,22 +67,36 @@ io.on('connection', function (socket) {
         users[id].status = 2;
         io.to('lobby').emit('userList', {usersList: helpers.getUsersList(users)});
 
+        var user1Items = [
+            item.collection.random(),
+            item.collection.random(),
+            item.collection.random(),
+            item.collection.random()
+        ];
+        var user2Items = [
+            item.collection.random(),
+            item.collection.random(),
+            item.collection.random(),
+            item.collection.random()
+        ];
+        var itemIds = user1Items.map(function (item) {
+            return item.id;
+        }).concat(user2Items.map(function (item) {
+            return item.id;
+        }));
+
+        matches[room] = {
+            users: [ id, socket.id ],
+            items: itemIds,
+            questions: {}
+        };
+
         io.to(room).emit('initGame', {
             match: room, // matchname
             user1: helpers.getUserData(users[socket.id]), // accepted
-            user1Items: [
-                item.collection.random(),
-                item.collection.random(),
-                item.collection.random(),
-                item.collection.random()
-            ],
+            user1Items: user1Items,
             user2: helpers.getUserData(users[id]), // requester
-            user2Items: [
-                item.collection.random(),
-                item.collection.random(),
-                item.collection.random(),
-                item.collection.random()
-            ]
+            user2Items: user2Items
         });
     });
 });
@@ -117,6 +133,9 @@ stdin.addListener('data', function (d) {
                 console.log(colors.error('es gibt keinen user mit der ID'));
             }
             break;
+        case '/matchlist':
+            console.log(helpers.c.getOpenMatchesList(matches));
+            break;
         case '/kickall':
             for (var id in users) {
                 if (users.hasOwnProperty(id)) {
@@ -144,3 +163,17 @@ item.collection.add(9, 'Item #9', 'url');
 item.collection.add(10, 'Item #10', 'url');
 item.collection.add(11, 'Item #11', 'url');
 item.collection.add(12, 'Item #12', 'url');
+
+// QUESTIONS
+question.collection.add(1, 'Wirf Item #1 in den Topf', 1);
+question.collection.add(2, 'Wirf Item #2 in den Topf', 2);
+question.collection.add(3, 'Wirf Item #3 in den Topf', 3);
+question.collection.add(4, 'Wirf Item #4 in den Topf', 4);
+question.collection.add(5, 'Wirf Item #5 in den Topf', 5);
+question.collection.add(6, 'Wirf Item #6 in den Topf', 6);
+question.collection.add(7, 'Wirf Item #7 in den Topf', 7);
+question.collection.add(8, 'Wirf Item #8 in den Topf', 8);
+question.collection.add(9, 'Wirf Item #9 in den Topf', 9);
+question.collection.add(10, 'Wirf Item #10 in den Topf', 10);
+question.collection.add(11, 'Wirf Item #11 in den Topf', 11);
+question.collection.add(12, 'Wirf Item #12 in den Topf', 12);
