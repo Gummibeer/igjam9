@@ -1,0 +1,71 @@
+#game-main-frame {
+  position: relative;
+  font-family: @font-family;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+#game-itemholder {
+  position: absolute;
+  width: 10%;
+  height: 80%;
+  top: 10%;
+  left: 5%;
+  background-color: yellow;
+};
+
+.shelf-item {
+  width: 100%;
+  height: 25%;
+  background-color: pink;
+}
+
+#spell-book {
+  width : 100%;
+  height: 100%;
+  background-image: url(../img/buch.png);
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+#wizards-main {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width : 30%;
+  height: 40%;
+}
+
+#spell-input {
+  width: 60%;
+  display: block;
+  margin: 0 auto;
+}
+
+#spell-crank {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width : 30%;
+  height: 40%;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+  &.spellcrank-1 {
+    background-image: url(../img/Kurbel-Animation1.png);
+  }
+  &.spellcrank-2 {
+    background-image: url(../img/Kurbel-Animation2.png);
+  }
+  &.spellcrank-3 {
+    background-image: url(../img/Kurbel-Animation3.png);
+  }
+  &.spellcrank-4 {
+    background-image: url(../img/Kurbel-Animation4.png);
+  }
+}
+
