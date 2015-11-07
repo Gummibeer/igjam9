@@ -91,7 +91,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
 
     var _joinLobby = function(){
         console.log('Request Lobby Login');
-        _socket.emit('joinLobby', {id: _myId,name: _myName});
+        _socket.emit('joinLobby', _myName);
     };
 
     this.destroy = function() {
