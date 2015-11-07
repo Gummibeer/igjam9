@@ -183,18 +183,19 @@ stdin.addListener('data', function (d) {
 });
 
 // ITEMS
-item.collection.add(1, 'Item #1', 'src/img/dummy/1.png');
-item.collection.add(2, 'Item #2', 'src/img/dummy/2.png');
-item.collection.add(3, 'Item #3', 'src/img/dummy/3.png');
-item.collection.add(4, 'Item #4', 'src/img/dummy/4.png');
-item.collection.add(5, 'Item #5', 'src/img/dummy/5.png');
-item.collection.add(6, 'Item #6', 'src/img/dummy/6.png');
-item.collection.add(7, 'Item #7', 'src/img/dummy/7.png');
-item.collection.add(8, 'Item #8', 'src/img/dummy/8.png');
-item.collection.add(9, 'Item #9', 'src/img/dummy/9.png');
-item.collection.add(10, 'Item #10', 'src/img/dummy/10.png');
-item.collection.add(11, 'Item #11', 'src/img/dummy/11.png');
-item.collection.add(12, 'Item #12', 'src/img/dummy/12.png');
+item.collection.add(1, 'Item #1', 'src/img/1.png');
+item.collection.add(2, 'Item #2', 'src/img/2.png');
+item.collection.add(3, 'Item #3', 'src/img/3.png');
+item.collection.add(4, 'Item #4', 'src/img/4.png');
+item.collection.add(5, 'Item #5', 'src/img/5.png');
+item.collection.add(6, 'Item #6', 'src/img/6.png');
+item.collection.add(7, 'Item #7', 'src/img/7.png');
+item.collection.add(8, 'Item #8', 'src/img/8.png');
+item.collection.add(9, 'Item #9', 'src/img/9.png');
+item.collection.add(10, 'Item #10', 'src/img/10.png');
+item.collection.add(11, 'Item #11', 'src/img/11.png');
+item.collection.add(12, 'Item #12', 'src/img/12.png');
+item.collection.add(13, 'Item #13', 'src/img/13.png');
 
 // QUESTIONS
 question.collection.add(1, 'Wirf Item #1 in den Topf', 1);
