@@ -7,7 +7,7 @@ var helpers = require('./server/helpers.js');
 
 console.log(helpers.prefix() + 'starting game server');
 
-var port = 666; //63350;
+var port = 63350; //63350;
 var users = {};
 
 colors.setTheme({
