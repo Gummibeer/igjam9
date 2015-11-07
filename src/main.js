@@ -7,7 +7,7 @@ var helpers = require('./server/helpers.js');
 
 console.log(helpers.prefix() + 'starting game server');
 
-var port = 63350; //63350;
+var port = 666; //63350;
 var users = {};
 
 colors.setTheme({
@@ -64,9 +64,9 @@ io.on('connection', function (socket) {
         io.to('lobby').emit('userList', {usersList: helpers.getUsersList(users)});
 
         io.to(room).emit('initGame', {
-            match: room,
-            user1: helpers.getUserData(users[socket.id]),
-            user2: helpers.getUserData(users[id])
+            match: room, // matchname
+            user1: helpers.getUserData(users[socket.id]), // accepted
+            user2: helpers.getUserData(users[id]) // requester
         });
     });
 });
