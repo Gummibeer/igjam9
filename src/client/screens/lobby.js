@@ -53,6 +53,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _cancelRequest = function() {
+        _$overlay.hide();
         _socket.emit('abortRequest',_currentRequestId);
     };
 

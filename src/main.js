@@ -5,7 +5,7 @@ var colors = require('colors');
 var user = require('./server/models/user.js');
 var helpers = require('./server/helpers.js');
 
-var port = 666; //63350;
+var port = 63350; //63350;
 var users = {};
 
 colors.setTheme({
@@ -56,7 +56,7 @@ io.on('connection', function (socket) {
         users[id].socket.join(room);
         console.log(helpers.prefix() + colors.debug('match-room created %s for: %s vs %s'), room, socket.id, id);
 
-        socket.to(room).emit('initGame', {
+        io.to(room).emit('initGame', {
             match: room,
             user1: helpers.getUserData(users[socket.id]),
             user2: helpers.getUserData(users[id])
