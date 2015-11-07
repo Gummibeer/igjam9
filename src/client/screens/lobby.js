@@ -61,7 +61,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
         console.log('get new Userlist');
         $('.player-list-item').remove();
         $.each(lobbyData.usersList, function(key,value){
-            if( value.id !== _myId){
+            if( value.id !== _socket.id){
                 var $user = $('<div class="player-list-item">' + value.name + '</div>');
                 $user.on('click', function(){
                     _onUserItemClick(value.id);
