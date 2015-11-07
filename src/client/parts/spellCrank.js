@@ -15,19 +15,15 @@ var IggjSpellCrank = function() {
     var _createSpellCrank = function() {
         _$mainContainer = $('<div id="spell-crank" class ="spellcrank-1"></div>');
         _$mainContainer.on('click', function () {
-            console.log('click');
             _nextBackground();
         });
         _$mainContainer.on('mousedown', function () {
-            console.log('mousedown');
             _startInterval();
         });
         _$mainContainer.on('mouseup', function () {
-            console.log('mouseup');
             _stopInterval();
         });
         _$mainContainer.on('mouseleave', function () {
-            console.log('mouseleave');
             _stopInterval();
         });
     };

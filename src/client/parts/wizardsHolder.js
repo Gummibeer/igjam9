@@ -24,7 +24,7 @@ var IggjWizardsHolder = function() {
         _$spellInput = $('<input id="spell-input" type = "text" />');
         _$spellInput.on('keypress', function (e) {
             if (e.keyCode === KEY_ENTER) {
-                _spellEnterTime = new Date();
+                _spellEnterTime = new Date().getTime();
                 if((_$spellInput.value == _currentSpell) && (_spellEnterTime < _spellEndTime)) {
                     _callback(1);
                 } else {
