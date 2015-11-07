@@ -1,9 +1,12 @@
 @import url(//fonts.googleapis.com/css?family=Architects+Daughter);
+
 html,
 body,
 #main-stage {
     position: relative;
     font-family: 'Architects Daughter';
+    padding: 0;
+    margin: 0;
     width: 100%;
     height: 100%;
     background-color: black;
@@ -34,13 +37,30 @@ body,
 
 }
 
-#request-screen {
+#overlay {
     position: absolute;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+    position: absolute;
+    z-index: 1010;
     top: 10%;
     margin-left: 25%;
     width: 50%;
     height: 60%;
-    background-color: #444444;
+    background-color: #262626;
+    border-radius: 5px;
+}
+
+#request-screen {
 }
 
 #request-screen-player-id {
@@ -59,8 +79,4 @@ body,
 #request-screen-cancel-btn {
     color: white;
     font-family: inherit;
-}
-
-.player-list-item {
-    color: rebeccapurple;
 }
