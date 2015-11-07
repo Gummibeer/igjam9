@@ -2,6 +2,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _startScreen;
     var KEY_ENTER = 13;
+    var FRAME_DURATION = 10000;
 
     var _init = function () {
         if (localStorage.getItem('username')) {
@@ -22,7 +23,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         var input = document.createElement('input');
         input.setAttribute('id', 'input-username');
         input.setAttribute('type', 'text');
-        input.setAttribute('autofocus', true);
+        input.setAttribute('placeholder', 'enter name');
         input.setAttribute('novalidate', true);
         input.style.display = 'block';
         input.style.margin = 'auto';
@@ -60,10 +61,32 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         var input = _createInput();
         var inputDiv = _createInputDiv();
         _startScreen = _createHolder();
-        inputDiv.appendChild(logo);
-        inputDiv.appendChild(input);
-        _startScreen.appendChild(inputDiv);
-        _startScreen = $(_startScreen);
+
+        setTimeout(function() {
+            _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
+            setTimeout(function() {
+                _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_2.jpg)';
+                _startScreen.style.boxShadow = 'none';
+                setTimeout(function() {
+                    _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
+                    setTimeout(function() {
+                        _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_3.jpg)';
+                        _startScreen.style.boxShadow = 'none';
+                        setTimeout(function() {
+                            _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
+                            setTimeout(function() {
+                                _startScreen.style.backgroundImage = 'url(../../src/img/bg_username.jpg)';
+                                _startScreen.style.boxShadow = 'none';
+                                inputDiv.appendChild(logo);
+                                inputDiv.appendChild(input);
+                                _startScreen.appendChild(inputDiv);
+                                _startScreen = $(_startScreen);
+                            }, 1000); // BLACK => LOGIN
+                        }, FRAME_DURATION); // 3 => BLACK
+                    }, 1000); // BLACK => 3
+                }, FRAME_DURATION); // 2 => BLACK
+            }, 1000); // BLACK => 2
+        }, FRAME_DURATION); // 1 => BLACK
     };
 
     this.destroy = function () {
