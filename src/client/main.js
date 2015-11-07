@@ -34,8 +34,7 @@ var IggjGame = function () {
     var _createGameScreen = function (data) {
         console.log('start game screen');
         var game = new IggjGameScreen(_stageHandler, _eventHandler, _networkSocket, data);
-        var socket = _networkSocket.getNetworkSocket();
-        socket.on('gameOver', function () {
+        _eventHandler('returnToLobby', function () {
             game.destroy();
             _createLobby();
         });

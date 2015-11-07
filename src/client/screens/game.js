@@ -7,9 +7,11 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _taskBar = null;
     var _socket = null;
     var _myId = null;
+    var _madeADecisonThisRound = false;
 
-    //TODO: nur einmal klickbat pro round
-    //TODO: golem zusammen bauen
+    //TODO: nur einmal klickbar pro round
+    //TODO: golem zusammen bauen (check)
+    //TODO:matchEnded senden return to Lobby (check)
 
     var _init = function () {
         stageHandler.changeScreen($('<div></div>'));
@@ -24,6 +26,11 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _initListeners = function() {
         eventHandler('itemClicked').subscribe(function(itemId){
             _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
+        });
+
+        eventHandler('gameOver').subscribe(function(){
+            _socket.emit('gameEnded', gameData.match);
+            eventHandler('returnToLobby').publish();
         });
 
         _socket.on('newItem',function(value){
@@ -73,7 +80,11 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     this.destroy = function () {
-
+        _socket.off('newItem',function(value){
+            _itemHolder.addItem(new IggjItem(value.item.id, value.item.img, value.item.name));
+        });
+        _socket.off('endRound',_onRoundEnded);
+        _socket.off('startRound',_onRoundStarted);
     };
 
     _init();

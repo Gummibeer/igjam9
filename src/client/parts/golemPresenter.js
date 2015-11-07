@@ -5,12 +5,12 @@ IggjGolemPresenter = function() {
     var _stageToWin = 6;
     var stagesImg = [
         'src/img/dolem_final_stufe_0.png',
-        '../img/dolem_final_stufe_1.png',
-        '../img/dolem_final_stufe_2.png',
-        '../img/dolem_final_stufe_3.png',
-        '../img/dolem_final_stufe_4.png',
-        '../img/dolem_final_stufe_5.png',
-        '../img/dolem_final_stufe_6.png'
+        'src/img/dolem_final_stufe_1.png',
+        'src/img/dolem_final_stufe_2.png',
+        'src/img/dolem_final_stufe_3.png',
+        'src/img/dolem_final_stufe_4.png',
+        'src/img/dolem_final_stufe_5.png',
+        'src/img/dolem_final_stufe_6.png'
     ];
 
     var _init = function() {
