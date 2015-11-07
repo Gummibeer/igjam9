@@ -1,33 +1,45 @@
-
-
+@import url(//fonts.googleapis.com/css?family=Architects+Daughter);
 html,
 body,
 #main-stage {
     position: relative;
+    font-family: 'Architects Daughter';
     width: 100%;
     height: 100%;
+    background-color: black;
 }
 
 #lobby-main {
     position: relative;
+    background-color: black;
     width: 100%;
     height: 100%;
 }
 
 #lobby-player-list {
-
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background-color: #b5d592;
 }
 
 #lobby-player-name {
+    color: white;
+    width: 80%;
+    text-align: center;
+    font-size: x-large;
+    margin: 0 auto;
 
 }
 
 #request-screen {
     position: absolute;
     top: 10%;
-    margin: auto;
+    margin-left: 25%;
     width: 50%;
-    height: 30%;
+    height: 60%;
     background-color: #444444;
 }
 
@@ -36,13 +48,15 @@ body,
 }
 
 #request-screen-ok-btn {
-    opacity: 0;
+    color: white;
+    font-family: inherit;
 }
 
 #request-screen-cancel-btn {
-    opacity: 0;
+    color: white;
+    font-family: inherit;
 }
 
 .player-list-item {
-
+    color: rebeccapurple;
 }

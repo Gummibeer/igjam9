@@ -33,14 +33,15 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
         _$mainContainer.append(_$playerList);
         _$mainContainer.append(_$requestScreen);
         _$requestScreen.hide();
+        _$playerName.text('Dein Player-Name ist: ' + _myName);
         stageHandler.changeScreen(_$mainContainer);
     };
 
     var _createRequestScreen = function() {
         _$requestScreen = $('<div id="request-screen"></div>');
         _$requestScreen.append($('<div id="request-screen-player-id"></div>'));
-        _$requestScreen.append($('<div id="request-screen-ok-btn">Annehmen</div>').on('click',_acceptRequest));
-        _$requestScreen.append($('<div id="request-screen-cancel-btn">Ablehnen</div>').on('click',_cancelRequest));
+        _$requestScreen.append($('<div id="request-screen-ok-btn">Annehmen</div>').on('click',_acceptRequest).hide());
+        _$requestScreen.append($('<div id="request-screen-cancel-btn">Ablehnen</div>').on('click',_cancelRequest).hide());
     };
 
     var _acceptRequest = function() {
@@ -57,6 +58,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _onLobbyJoined = function(lobbyData) {
+        console.log('get new Userlist');
         $('.player-list-item').remove();
         $.each(lobbyData.usersList, function(key,value){
             if( value.id !== _myId){
