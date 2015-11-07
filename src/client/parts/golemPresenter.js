@@ -1,0 +1,3 @@
+IggjGolemPresenter = function() {
+
+};
