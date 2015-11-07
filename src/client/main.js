@@ -27,7 +27,7 @@ var IggjGame = function () {
         socket.on('initGame', function (data) {
             console.log('init game ', data);
             lobbyScreen.destroy();
-            _createGameScreen();
+            _createGameScreen(data);
         });
     };
 

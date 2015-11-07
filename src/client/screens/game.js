@@ -13,6 +13,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _myId = _socket.id;
         _createGameScreenElements();
         _initListeners();
+        _socket.emit('waitingForRound',gameData.match);
     };
 
     var _initListeners = function() {
