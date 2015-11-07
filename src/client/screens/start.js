@@ -22,7 +22,6 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         var input = document.createElement('input');
         input.setAttribute('id', 'input-username');
         input.setAttribute('type', 'text');
-        input.setAttribute('placeholder', 'Name');
         input.setAttribute('autofocus', true);
         input.style.display = 'block';
         input.style.margin = 'auto';
