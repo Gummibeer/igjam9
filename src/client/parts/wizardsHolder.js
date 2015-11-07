@@ -1,4 +1,4 @@
-var wizardsHolder = function() {
+var IggjWizardsHolder = function() {
 
     var _$mainContainer = null;
     var _$spellInput = null;
@@ -22,7 +22,7 @@ var wizardsHolder = function() {
     var _createWizardsHolder = function() {
         _$mainContainer = $('<div id="wizards-main"></div>');
         _$spellInput = $('<input id="spell-input" type = "text" />');
-        _$spellInput.addEventListener('keypress', function (e) {
+        _$spellInput.on('keypress', function (e) {
             if (e.keyCode === KEY_ENTER) {
                 _spellEnterTime = new Date();
                 if((_$spellInput.value == _currentSpell) && (_spellEnterTime < _spellEndTime)) {
@@ -38,7 +38,7 @@ var wizardsHolder = function() {
         _$mainContainer.append(_$spellBook);
     };
 
-    this.getWizardsHolder = function() {
+    this.$getWizardsHolder = function() {
         return _$mainContainer;
     };
 
