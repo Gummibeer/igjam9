@@ -76,8 +76,9 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
                             setTimeout(function() {
                                 _startScreen.style.backgroundImage = 'url(../../src/img/bg_username.jpg)';
                                 _startScreen.style.boxShadow = 'none';
-                                _startScreen.appendChild(logo);
-                                _startScreen.appendChild(input);
+                                inputDiv.appendChild(logo);
+                                inputDiv.appendChild(input);
+                                _startScreen.appendChild(inputDiv);
                                 _startScreen = $(_startScreen);
                             }, 1000); // BLACK => LOGIN
                         }, FRAME_DURATION); // 3 => BLACK
