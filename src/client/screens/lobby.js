@@ -58,6 +58,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
 
     var _onGameRequest = function(data) {
         console.log('game request from', data);
+        _currentRequestId = data.userData.id;
         _showRequestScreen(true, data.userData.name);
     };
 
