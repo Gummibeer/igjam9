@@ -8,6 +8,9 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _socket = null;
     var _myId = null;
 
+    //TODO: nur einmal klickbat pro round
+    //TODO: golem zusammen bauen
+
     var _init = function () {
         stageHandler.changeScreen($('<div></div>'));
         console.log('CREATE GAME SCREEN');
@@ -30,13 +33,18 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _socket.on('startRound',_onRoundStarted);
     };
 
-    var _onRoundEnded = function(bool) {
-        console.log('round result :', bool)
+    var _onRoundEnded = function(roundresult) {
+        console.log('round result :', roundresult)
+        if(roundresult) {
+            _golemPresenter.increaseGolemStage();
+        } else {
+            _golemPresenter.decreaseGolemStage();
+        }
         _socket.emit('waitingForRound',gameData.match);
     };
 
     var _onRoundStarted = function(data) {
-        _taskBar.setTask(data.task);
+        _taskBar.setTask(data.task.message);
     };
 
     var _createGameScreenElements = function () {
