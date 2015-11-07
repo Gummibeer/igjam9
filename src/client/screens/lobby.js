@@ -5,9 +5,13 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     var _$playerList = null;
     var _$playerName = null;
     var _$requestScreen = null;
+    var _myName = '';
+    var _myId = '';
 
     var _init = function() {
         console.log('CREATE LOBBY');
+        _myId = localStorage.getItem('userid');
+        _myName = localStorage.getItem('username')
         _socket = networkHandler.getNetworkSocket();
         _createUI();
         _initListeners();
@@ -55,20 +59,27 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     var _onLobbyJoined = function(lobbyData) {
         $('.player-list-item').remove();
         $.each(lobbyData.usersList, function(key,value){
-            var $user = $('<div class="player-list-item">' + value.name + '</div>');
-            $user.on('click', function(){
-                _onUserItemClick(value.id);
-            });
-            _$playerList.append($user);
+            if( value.id !== _myId){
+                var $user = $('<div class="player-list-item">' + value.name + '</div>');
+                $user.on('click', function(){
+                    _onUserItemClick(value.id);
+                });
+                _$playerList.append($user);
+            }
         });
     };
 
     var _onUserItemClick = function (id) {
+        console.log('requesting game with user ' + id);
         _socket.emit('requestGame',id);
         _showRequestScreen(false);
     };
 
     var _showRequestScreen = function (isRequested) {
+        if(isRequested){
+            $('#request-screen-ok-btn').show();
+            $('#request-screen-cancel-btn').show();
+        }
         _$requestScreen.show();
     };
 
@@ -77,8 +88,8 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _joinLobby = function(){
-        console.log('Request Lobby Login')
-        _socket.emit('joinLobby', localStorage.getItem('username'));
+        console.log('Request Lobby Login');
+        _socket.emit('joinLobby', {id: _myId,name: _myName});
     };
 
     this.destroy = function() {

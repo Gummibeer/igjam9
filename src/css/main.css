@@ -2,14 +2,16 @@
 
 html,
 body,
-#lobby-main,
 #main-stage {
+    position: relative;
     width: 100%;
     height: 100%;
 }
 
 #lobby-main {
-
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
 #lobby-player-list {
@@ -21,7 +23,12 @@ body,
 }
 
 #request-screen {
-
+    position: absolute;
+    top: 10%;
+    margin: auto;
+    width: 50%;
+    height: 30%;
+    background-color: #444444;
 }
 
 #request-screen-player-id {
@@ -29,11 +36,11 @@ body,
 }
 
 #request-screen-ok-btn {
-
+    opacity: 0;
 }
 
 #request-screen-cancel-btn {
-
+    opacity: 0;
 }
 
 .player-list-item {
