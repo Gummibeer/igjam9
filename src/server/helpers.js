@@ -15,15 +15,11 @@ exports.getUsersList = function (users) {
         }
     }).filter(function (item) {
         return !(item === null);
-    });
+    }).sort(exports.sortByName);
+};
 
-    return users.map(function (user) {
-        if (user.status == 1) {
-            return exports.getUserData(user);
-        } else {
-            return null;
-        }
-    }).filter(function (item) {
-        return !(item === null);
-    });
+exports.sortByName = function(a, b){
+    var aName = a.name.toLowerCase();
+    var bName = b.name.toLowerCase();
+    return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 };
