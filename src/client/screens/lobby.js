@@ -5,8 +5,10 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     var _$playerList = null;
     var _$playerName = null;
     var _$requestScreen = null;
+    var _$overlay = null;
     var _myName = '';
     var _myId = '';
+    var _currentRequestId = '';
 
     var _init = function() {
         console.log('CREATE LOBBY');
@@ -31,30 +33,32 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
         _createRequestScreen();
         _$mainContainer.append(_$playerName);
         _$mainContainer.append(_$playerList);
-        _$mainContainer.append(_$requestScreen);
-        _$requestScreen.hide();
+        _$mainContainer.append(_$overlay);
+        _$overlay.hide();
         _$playerName.text('Dein Player-Name ist: ' + _myName);
         stageHandler.changeScreen(_$mainContainer);
     };
 
     var _createRequestScreen = function() {
-        _$requestScreen = $('<div id="request-screen"></div>');
+        _$overlay = $('<div id="overlay"></div>');
+        _$requestScreen = $('<div id="request-screen" class="modal"></div>');
+        _$overlay.append(_$requestScreen);
         _$requestScreen.append($('<div id="request-screen-player-id"></div>'));
         _$requestScreen.append($('<div id="request-screen-ok-btn">Annehmen</div>').on('click',_acceptRequest).hide());
         _$requestScreen.append($('<div id="request-screen-cancel-btn">Ablehnen</div>').on('click',_cancelRequest).hide());
     };
 
     var _acceptRequest = function() {
-
+        _socket.emit('acceptRequest',_currentRequestId);
     };
 
     var _cancelRequest = function() {
-
+        _socket.emit('abortRequest',_currentRequestId);
     };
 
     var _onGameRequest = function(data) {
         console.log('game request from', data);
-        _showRequestScreen(true);
+        _showRequestScreen(true, data.userData.name);
     };
 
     var _onLobbyJoined = function(lobbyData) {
@@ -73,21 +77,24 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
 
     var _onUserItemClick = function (id, name) {
         console.log('requesting game with user ' + id + ' and name ' + name);
+        _currentRequestId = id;
         _socket.emit('requestGame',id);
         _showRequestScreen(false, name);
     };
 
-    var _showRequestScreen = function (isRequested) {
-        $('request-screen-player-id').text('Frage Spiel bei Spieler ' + name + 'an.');
+    var _showRequestScreen = function (isRequested, name) {
         if(isRequested){
+            $('#request-screen-player-id').text('Ein Spiel wird von ' + name + ' angefragt.');
             $('#request-screen-ok-btn').show();
             $('#request-screen-cancel-btn').show();
+        } else {
+            $('#request-screen-player-id').text('Frage Spiel bei Spieler ' + name + ' an.');
         }
-        _$requestScreen.show();
+        _$overlay.show();
     };
 
     var _onRequestAborted = function() {
-        _$requestScreen.hide();
+        _$overlay.hide();
     };
 
     var _joinLobby = function(){

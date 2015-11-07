@@ -29,7 +29,7 @@ body,
 }
 
 #lobby-player-name {
-    color: white;
+    color: #ffffff;
     width: 80%;
     text-align: center;
     font-size: x-large;
@@ -64,7 +64,7 @@ body,
 }
 
 #request-screen-player-id {
-    color: white;
+    color: #ffffff;
     width: 80%;
     text-align: center;
     font-size: x-large;
@@ -72,11 +72,11 @@ body,
 }
 
 #request-screen-ok-btn {
-    color: white;
+    color: #ffffff;
     font-family: inherit;
 }
 
 #request-screen-cancel-btn {
-    color: white;
+    color: #ffffff;
     font-family: inherit;
 }
