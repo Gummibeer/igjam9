@@ -44,7 +44,6 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _$gameMain.append(_taskBar.$getTaskbar());
 
         stageHandler.changeScreen(_$gameMain);
-        _taskBar.setTask('Wooow');
     };
 
     this.destroy = function () {
