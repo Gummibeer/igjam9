@@ -7,18 +7,18 @@ var IggjGame = function () {
     var _init = function () {
         console.log('game init started');
         _networkSocket = new IggjNetworkHandler();
-        _eventHandler = new IggjEventHandler();
+        _eventHandler = IggjEventHandler;
         _stageHandler = new IggjStageHandler();
         console.log('initFinished')
         _startGame();
     };
 
     var _startGame = function () {
-        var startScreen = _createStartScreen(_stageHandler, _eventHandler);
-        _eventHandler.subscribe('startScreenFinished', function () {
-            startScreen.destroy();
+        _eventHandler('startScreenFinished').subscribe(function () {
+            console.log('exit StartScreen')
             _createLobby();
         });
+        _createStartScreen(_stageHandler, _eventHandler);
     };
 
     var _createLobby = function () {

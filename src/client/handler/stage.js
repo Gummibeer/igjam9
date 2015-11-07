@@ -4,7 +4,7 @@ var IggjStageHandler = function () {
     var _currentDisplayObject = null;
 
     var _init = function () {
-        _stage = $('#mainStage');
+        _stage = $('#main-stage');
     };
 
     var _displayObjectOnStage = function ($screenObject) {

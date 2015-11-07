@@ -5,7 +5,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _init = function () {
         if (localStorage.getItem('username')) {
-            eventHandler.publish('startScreenFinished');
+            eventHandler('startScreenFinished').publish();
         } else {
             _createStartScreen();
             stageHandler.changeScreen(_startScreen);
@@ -23,7 +23,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
             if (e.keyCode === KEY_ENTER) {
                 var name = document.getElementById('input-username').value;
                 localStorage.setItem('username', name);
-                eventHandler.publish('startScreenFinished');
+                eventHandler('startScreenFinished').publish();
             }
         });
         input.addEventListener('focus', function () {

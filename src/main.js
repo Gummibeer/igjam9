@@ -2,7 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-var port = 666;
+var port = 63350;
 
 io.on('connection', function (socket) {
     console.log('a user connected');
