@@ -23,6 +23,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         input.setAttribute('id', 'input-username');
         input.setAttribute('type', 'text');
         input.setAttribute('autofocus', true);
+        input.setAttribute('novalidate', true);
         input.style.display = 'block';
         input.style.margin = 'auto';
         input.addEventListener('keypress', function (e) {
