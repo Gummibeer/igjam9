@@ -1,4 +1,4 @@
-IggjItem = {
-    id: null,
-    img: ''
+IggjItem = function(id,img) {
+    this.id= id;
+    this.img= img;
 };

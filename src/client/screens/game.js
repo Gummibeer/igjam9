@@ -22,6 +22,12 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _$gameMain = $('<div id="game-main-frame"></div>');
         _itemHolder = new ItemHolder();
         _$gameMain.append(_itemHolder.$getShelf());
+        new IggjItem(Math.round(Math.random()*1000),'none')
+
+        setTimeout(function(){_itemHolder.addItem(new IggjItem(Math.round(Math.random()*1000),'none'))}, 1000);
+        setTimeout(function(){_itemHolder.addItem(new IggjItem(Math.round(Math.random()*1000),'none'))}, 2000);
+       // setTimeout(function(){_itemHolder.addItem(new IggjItem(Math.round(Math.random()*1000),'none'))}, 3000);
+       // setTimeout(function(){_itemHolder.addItem(new IggjItem(Math.round(Math.random()*1000),'none'))}, 4000);
 
         stageHandler.changeScreen(_$gameMain);
     };
