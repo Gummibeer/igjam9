@@ -40,7 +40,8 @@ io.on('connection', function (socket) {
 });
 
 http.listen(port, function () {
-    console.log('listening on *:' + port);
+    console.log('starting game server');
+    console.log('listening on *:%s', port);
 });
 
 app.get('/', function (req, res) {
