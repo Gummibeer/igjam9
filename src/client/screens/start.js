@@ -98,7 +98,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
                     }, 1000); // BLACK => 3
                 }, FRAME_DURATION); // 2 => BLACK
             }, 1000); // BLACK => 2
-        }, FRAME_DURATION); // 1 => BLACK
+        }, FRAME_DURATION * 0.5); // 1 => BLACK
     };
 
     this.destroy = function () {
