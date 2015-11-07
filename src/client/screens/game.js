@@ -23,7 +23,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
 
         _socket.on('newItem',function(value){
-            _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
+            _itemHolder.addItem(new IggjItem(value.item.id, value.item.img, value.item.name));
         });
         _socket.on('endRound',_onRoundEnded);
         _socket.on('startRound',_onRoundStarted);
