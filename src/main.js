@@ -140,6 +140,11 @@ io.on('connection', function (socket) {
         console.log(matches[data.match].items);
         socket.emit('newItem', {item: newItem});
     });
+
+    socket.on('matchEnded', function (matchId) {
+        console.log(helpers.prefix() + colors.debug('match %s has been ended'), matchId);
+        delete matches[matchId];
+    });
 });
 
 // HTTP
