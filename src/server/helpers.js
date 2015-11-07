@@ -32,3 +32,12 @@ exports.dt = function() {
 exports.prefix = function () {
     return '[' + exports.dt() + '] ';
 };
+
+exports.c = {
+    getUsersNameList: function (users) {
+        return Object.keys(users).map(function(key) {
+            var user = users[key];
+            return user.name + ' @ ' + user.id + ' [' + user.status + ']' + '\n';
+        }).join('');
+    }
+};

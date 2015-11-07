@@ -5,7 +5,9 @@ var colors = require('colors');
 var user = require('./server/models/user.js');
 var helpers = require('./server/helpers.js');
 
-var port = 63350; //63350;
+console.log(helpers.prefix() + 'starting game server');
+
+var port = 666; //63350;
 var users = {};
 
 colors.setTheme({
@@ -15,10 +17,9 @@ colors.setTheme({
     error: 'red'
 });
 
-console.log(helpers.prefix() + 'starting game server');
-
+// SOCKETS
 io.on('connection', function (socket) {
-    users[socket.id] = new user.model('', socket, 0);
+    users[socket.id] = new user.model(socket, 0, '');
     users[socket.id].id = socket.id;
     users[socket.id].socket = socket;
     console.log(helpers.prefix() + colors.info('user connected %s'), socket.id);
@@ -66,6 +67,7 @@ io.on('connection', function (socket) {
     });
 });
 
+// HTTP
 http.listen(port, function () {
     console.log(helpers.prefix() + 'listening on *:%s', port);
 });
@@ -75,4 +77,19 @@ app.get('/', function (req, res) {
 });
 app.get(/src\/(.*)/, function (req, res) {
     res.sendFile(__dirname + '/' + req.params[0]);
+});
+
+// CONSOLE
+var stdin = process.openStdin();
+stdin.addListener('data', function(d) {
+    var str = d.toString().trim();
+    console.log(colors.debug('your command: %s'), str);
+    switch(str) {
+        case '/userlist':
+            console.log(helpers.c.getUsersNameList(users));
+            break;
+        default:
+            console.log(colors.error('das ist kein command'));
+            break;
+    }
 });
