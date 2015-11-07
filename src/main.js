@@ -86,6 +86,7 @@ io.on('connection', function (socket) {
         }));
 
         matches[room] = {
+            ready: 0, // number of ready users - if it's 2 we can start a round
             users: [ id, socket.id ],
             items: itemIds,
             questions: {}
