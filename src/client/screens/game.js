@@ -13,15 +13,27 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _myId = _socket.id;
         _createGameScreenElements();
         _initListeners();
+        _socket.emit('waitingForRound',gameData.match);
     };
 
     var _initListeners = function() {
-
+        eventHandler('itemClicked').subscribe(function(itemId){
+            _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
+        });
     };
 
     var _createGameScreenElements = function () {
+        var itemData = {};
         _$gameMain = $('<div id="game-main-frame"></div>');
-        _itemHolder = new ItemHolder();
+        _itemHolder = new ItemHolder(eventHandler);
+        if(gameData.user1.id === _socket.id){
+            itemData = gameData.user1Items;
+        } else {
+            itemData = gameData.user2Items;
+        }
+        $.each(itemData,function(key, value){
+            _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
+        });
         _wizardHolder = new IggjWizardsHolder();
         _spellCrank = new IggjSpellCrank();
         _$gameMain.append(_wizardHolder.$getWizardsHolder());

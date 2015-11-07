@@ -10,7 +10,7 @@ var question = require('./server/models/question.js');
 
 console.log(helpers.prefix() + 'starting game server');
 
-var port = 666; //63350;
+var port = 63350; //63350;
 var users = {};
 var matches = {};
 
