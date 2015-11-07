@@ -3,6 +3,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _itemHolder = null;
     var _wizardHolder = null;
     var _spellCrank = null;
+    var _taskBar = null;
     var _socket = null;
     var _myId = null;
 
@@ -36,11 +37,14 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
         _wizardHolder = new IggjWizardsHolder();
         _spellCrank = new IggjSpellCrank();
+        _taskBar = new IggjTaskBar();
         _$gameMain.append(_wizardHolder.$getWizardsHolder());
         _$gameMain.append(_itemHolder.$getShelf());
         _$gameMain.append(_spellCrank.$getSpellCrank());
+        _$gameMain.append(_taskBar.$getTaskbar());
 
         stageHandler.changeScreen(_$gameMain);
+        _taskBar.setTask('Wooow');
     };
 
     this.destroy = function () {
