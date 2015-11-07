@@ -2,6 +2,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _$gameMain = null;
     var _itemHolder = null;
     var _wizardHolder = null;
+    var _golemPresenter = null;
     var _spellCrank = null;
     var _taskBar = null;
     var _socket = null;
@@ -53,6 +54,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _wizardHolder = new IggjWizardsHolder();
         _spellCrank = new IggjSpellCrank();
         _taskBar = new IggjTaskBar();
+        _golemPresenter = new IggjGolemPresenter();
+        _$gameMain.append(_golemPresenter.$getGolemPresenter());
         _$gameMain.append(_wizardHolder.$getWizardsHolder());
         _$gameMain.append(_itemHolder.$getShelf());
         _$gameMain.append(_spellCrank.$getSpellCrank());
