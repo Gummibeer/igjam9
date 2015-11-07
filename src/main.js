@@ -2,8 +2,10 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var colors = require('colors');
-var user = require('./server/models/user.js');
 var helpers = require('./server/helpers.js');
+
+var user = require('./server/models/user.js');
+var item = require('./server/models/item.js');
 
 console.log(helpers.prefix() + 'starting game server');
 
@@ -66,7 +68,19 @@ io.on('connection', function (socket) {
         io.to(room).emit('initGame', {
             match: room, // matchname
             user1: helpers.getUserData(users[socket.id]), // accepted
-            user2: helpers.getUserData(users[id]) // requester
+            user1Items: [
+                item.collection.random(),
+                item.collection.random(),
+                item.collection.random(),
+                item.collection.random()
+            ],
+            user2: helpers.getUserData(users[id]), // requester
+            user2Items: [
+                item.collection.random(),
+                item.collection.random(),
+                item.collection.random(),
+                item.collection.random()
+            ]
         });
     });
 });
@@ -96,7 +110,7 @@ stdin.addListener('data', function (d) {
             break;
         case '/userkick':
             parts[1] = parts[1].trim();
-            if(Object.keys(users).indexOf(parts[1]) !== -1) {
+            if (Object.keys(users).indexOf(parts[1]) !== -1) {
                 users[parts[1]].socket.disconnect();
                 console.log(helpers.prefix() + colors.info('kicked user %s'), parts[1]);
             } else {
@@ -116,3 +130,17 @@ stdin.addListener('data', function (d) {
             break;
     }
 });
+
+// ITEMS
+item.collection.add(1, 'Item #1', 'url');
+item.collection.add(2, 'Item #2', 'url');
+item.collection.add(3, 'Item #3', 'url');
+item.collection.add(4, 'Item #4', 'url');
+item.collection.add(5, 'Item #5', 'url');
+item.collection.add(6, 'Item #6', 'url');
+item.collection.add(7, 'Item #7', 'url');
+item.collection.add(8, 'Item #8', 'url');
+item.collection.add(9, 'Item #9', 'url');
+item.collection.add(10, 'Item #10', 'url');
+item.collection.add(11, 'Item #11', 'url');
+item.collection.add(12, 'Item #12', 'url');
