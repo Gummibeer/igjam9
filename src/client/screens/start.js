@@ -2,6 +2,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _startScreen;
     var KEY_ENTER = 13;
+    var FRAME_DURATION = 10000;
 
     var _init = function () {
         if (localStorage.getItem('username')) {
@@ -22,8 +23,10 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         var input = document.createElement('input');
         input.setAttribute('id', 'input-username');
         input.setAttribute('type', 'text');
+        input.setAttribute('placeholder', 'enter name');
         input.setAttribute('autofocus', true);
         input.setAttribute('novalidate', true);
+        input.setAttribute('maxlength', '30');
         input.style.display = 'block';
         input.style.margin = 'auto';
         input.addEventListener('keypress', function (e) {
@@ -38,10 +41,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _createInputDiv = function () {
         var inputDiv = document.createElement('div');
-        inputDiv.style.position = 'relative';
-        inputDiv.style.top = '50px';
-        inputDiv.style.margin = '0 auto';
-        inputDiv.style.maxWidth = '600px';
+        inputDiv.setAttribute('id', 'input-holder');
         return inputDiv;
     };
 
@@ -55,15 +55,50 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         return holder;
     };
 
+    var _createTextHolder = function () {
+        var textHodler = document.createElement('div');
+        textHodler.setAttribute('id', 'text-holder');
+        return textHodler;
+    };
+
     var _createStartScreen = function () {
         var logo = _createLogo();
         var input = _createInput();
         var inputDiv = _createInputDiv();
+        var textHolder = _createTextHolder();
         _startScreen = _createHolder();
-        inputDiv.appendChild(logo);
-        inputDiv.appendChild(input);
-        _startScreen.appendChild(inputDiv);
-        _startScreen = $(_startScreen);
+        _startScreen.appendChild(textHolder);
+        var $textHolder = $(textHolder);
+
+        $textHolder.text('Help!');
+        setTimeout(function() {
+            _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
+            setTimeout(function() {
+                $textHolder.text('Oh no, you\'re stuck.');
+                _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_2.jpg)';
+                _startScreen.style.boxShadow = 'none';
+                setTimeout(function() {
+                    _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
+                    setTimeout(function() {
+                        $textHolder.text('Let\'s team up & save him!');
+                        _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_3.jpg)';
+                        _startScreen.style.boxShadow = 'none';
+                        setTimeout(function() {
+                            _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
+                            setTimeout(function() {
+                                $textHolder.text('');
+                                _startScreen.style.backgroundImage = 'url(../../src/img/bg_username.jpg)';
+                                _startScreen.style.boxShadow = 'none';
+                                inputDiv.appendChild(logo);
+                                inputDiv.appendChild(input);
+                                _startScreen.appendChild(inputDiv);
+                                _startScreen = $(_startScreen);
+                            }, 1000); // BLACK => LOGIN
+                        }, FRAME_DURATION); // 3 => BLACK
+                    }, 1000); // BLACK => 3
+                }, FRAME_DURATION); // 2 => BLACK
+            }, 1000); // BLACK => 2
+        }, FRAME_DURATION); // 1 => BLACK
     };
 
     this.destroy = function () {

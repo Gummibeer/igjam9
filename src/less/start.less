@@ -1,6 +1,17 @@
 #start-main {
-  background: url(../../src/img/bg_username.jpg) no-repeat center top;
+  background: url(../../src/img/bg_intro_1.jpg) no-repeat center top;
+  background-color: @black;
   background-size: auto 100%;
+  box-shadow: none;
+  transition: box-shadow 1s linear;
+}
+
+#text-holder {
+  text-align: center;
+  font-size: 3em;
+  color: @highlight;
+  margin-top: 50px;
+  text-transform: uppercase;
 }
 
 #input-username {
@@ -14,6 +25,9 @@
   font-size: 1.6em;
   color: @primary;
   text-transform: uppercase;
+  width: 100%;
+  display: block;
+  margin: auto;
 
   &:focus {
     border: none;
@@ -21,4 +35,11 @@
     outline: none;
     color: @primary;
   }
+}
+
+#input-holder {
+  position: relative;
+  top: 0;
+  margin: 0 auto;
+  max-width: 600px;
 }
