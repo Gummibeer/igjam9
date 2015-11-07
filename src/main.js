@@ -31,15 +31,15 @@ io.on('connection', function (socket) {
     });
 
     socket.on('joinLobby', function (name) {
-        console.log(colors.green('user joined lobby %s - %s'), socket.id, name);
         users[socket.id].name = name;
         users[socket.id].status = 1;
         io.emit('userList', { usersList: helpers.getUsersList(users) });
+        console.log(colors.green('user joined lobby %s - %s'), socket.id, name);
     });
 
     socket.on('requestGame', function (id) {
-        console.log(colors.debug('user %s has requested a game against %s'), socket.id, id);
         users[id].socket.emit('gameRequest', { userData: helpers.getUserData(users[socket.id]) });
+        console.log(colors.debug('user %s has requested a game against %s'), socket.id, id);
     });
 });
 
