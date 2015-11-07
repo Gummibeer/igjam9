@@ -12,11 +12,18 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         }
     };
 
+    var _createLogo = function () {
+        var image = document.createElement('img');
+        image.setAttribute('src', 'src/img/logo.png');
+        return image;
+    };
+
     var _createInput = function () {
         var input = document.createElement('input');
         input.setAttribute('id', 'input-username');
         input.setAttribute('type', 'text');
-        input.setAttribute('placeholder', 'Beschwörername');
+        input.setAttribute('placeholder', 'Name');
+        input.setAttribute('autofocus', true);
         input.style.display = 'block';
         input.style.margin = 'auto';
         input.addEventListener('keypress', function (e) {
@@ -35,7 +42,9 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
     var _createInputDiv = function () {
         var inputDiv = document.createElement('div');
         inputDiv.style.position = 'relative';
-        inputDiv.style.top = '50%';
+        inputDiv.style.top = '50px';
+        inputDiv.style.margin = '0 auto';
+        inputDiv.style.maxWidth = '600px';
         return inputDiv;
     };
 
@@ -49,9 +58,11 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
     };
 
     var _createStartScreen = function () {
+        var logo = _createLogo();
         var input = _createInput();
-        var inputDiv = _createInputDiv()
+        var inputDiv = _createInputDiv();
         _startScreen = _createHolder();
+        inputDiv.appendChild(logo);
         inputDiv.appendChild(input);
         _startScreen.appendChild(inputDiv);
         _startScreen = $(_startScreen);
