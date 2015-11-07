@@ -23,3 +23,12 @@ exports.sortByName = function(a, b){
     var bName = b.name.toLowerCase();
     return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 };
+
+exports.dt = function() {
+    var date = new Date();
+    return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2) + '.' + ('0' + date.getMilliseconds()).slice(-3);
+};
+
+exports.prefix = function () {
+    return '[' + exports.dt() + '] ';
+};
