@@ -24,15 +24,16 @@ var IggjGame = function () {
     var _createLobby = function () {
         var lobbyScreen = new IggjLobbyScreen(_stageHandler, _eventHandler, _networkSocket);
         var socket = _networkSocket.getNetworkSocket();
-        socket.on('initGame', function () {
+        socket.on('initGame', function (data) {
+            console.log('init game ', data);
             lobbyScreen.destroy();
             _createGameScreen();
         });
     };
 
-    var _createGameScreen = function () {
-        console.log('start game screen')
-        var game = new IggjGameScreen(_stageHandler, _eventHandler, _networkSocket);
+    var _createGameScreen = function (data) {
+        console.log('start game screen');
+        var game = new IggjGameScreen(_stageHandler, _eventHandler, _networkSocket, data);
         var socket = _networkSocket.getNetworkSocket();
         socket.on('gameOver', function () {
             game.destroy();
