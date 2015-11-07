@@ -2,10 +2,14 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _$gameMain = null;
     var _itemHolder = null;
     var _wizardHolder = null;
+    var _golemPresenter = null;
     var _spellCrank = null;
     var _taskBar = null;
     var _socket = null;
     var _myId = null;
+
+    //TODO: nur einmal klickbat pro round
+    //TODO: golem zusammen bauen
 
     var _init = function () {
         stageHandler.changeScreen($('<div></div>'));
@@ -29,13 +33,18 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _socket.on('startRound',_onRoundStarted);
     };
 
-    var _onRoundEnded = function(bool) {
-        console.log('round result :', bool)
+    var _onRoundEnded = function(roundresult) {
+        console.log('round result :', roundresult)
+        if(roundresult) {
+            _golemPresenter.increaseGolemStage();
+        } else {
+            _golemPresenter.decreaseGolemStage();
+        }
         _socket.emit('waitingForRound',gameData.match);
     };
 
     var _onRoundStarted = function(data) {
-        _taskBar.setTask(data.task);
+        _taskBar.setTask(data.task.message);
     };
 
     var _createGameScreenElements = function () {
@@ -53,6 +62,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _wizardHolder = new IggjWizardsHolder();
         _spellCrank = new IggjSpellCrank();
         _taskBar = new IggjTaskBar();
+        _golemPresenter = new IggjGolemPresenter();
+        _$gameMain.append(_golemPresenter.$getGolemPresenter());
         _$gameMain.append(_wizardHolder.$getWizardsHolder());
         _$gameMain.append(_itemHolder.$getShelf());
         _$gameMain.append(_spellCrank.$getSpellCrank());

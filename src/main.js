@@ -88,7 +88,7 @@ io.on('connection', function (socket) {
 
         matches[room] = {
             ready: 0, // number of ready users - if it's 2 we can start a round
-            success: false,
+            success: true,
             responded: [],
             users: [id, socket.id],
             items: itemIds,
@@ -109,7 +109,11 @@ io.on('connection', function (socket) {
         if (matches[matchId].ready == 2) {
             matches[matchId].ready = 0;
             // TODO: send the questions
-            io.to(matchId).emit('startRound', true);
+            matches[matchId].questions[0] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random()*matches[matchId].items.length -1)]);
+            matches[matchId].questions[1] = question.collection.getByItem(matches[matchId].items[Math.ceil(Math.random()*matches[matchId].items.length -1)]);
+            for(var key in matches[matchId].users){
+               users[matches[matchId].users[key]].socket.emit('startRound', {task: matches[matchId].questions[key]});
+            }
             console.log(helpers.prefix() + colors.debug('start new round in match %s'), matchId);
             setTimeout(function () {
                 if (matches[matchId].responded < 2) {
@@ -117,6 +121,8 @@ io.on('connection', function (socket) {
                 }
                 io.to(matchId).emit('endRound', matches[matchId].success);
                 console.log(helpers.prefix() + colors.debug('round ended [%s] in match %s'), matches[matchId].success, matchId);
+                matches[matchId].success = true;
+                matches[matchId].responded = 0;
             }, 5000);
         }
     });
@@ -125,7 +131,10 @@ io.on('connection', function (socket) {
         matches[data.match].responded.push(socket.id);
         console.log(helpers.prefix() + colors.debug('user %s from match %s has used item #%s'), socket.id, data.match, data.itemId);
         matches[data.match].items.splice(matches[data.match].items.indexOf(''+data.itemId), 1);
-        // TODO: check for right item
+        console.log('mop',matches[data.match].questions[0]);
+        if((matches[data.match].questions[0].itemId != data.itemId) && (matches[data.match].questions[1].itemId != data.itemId)) {
+            matches[data.match].success = false;
+        }
         var newItem = item.collection.random();
         matches[data.match].items.push(''+newItem.id);
         console.log(matches[data.match].items);
