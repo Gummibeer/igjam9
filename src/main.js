@@ -4,7 +4,7 @@ var io = require('socket.io')(http);
 var colors = require('colors');
 var user = require('./server/models/user.js');
 
-var port = 63350;
+var port = 666;
 var users = [];
 
 colors.setTheme({
