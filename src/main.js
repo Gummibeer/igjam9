@@ -59,6 +59,10 @@ io.on('connection', function (socket) {
         users[id].socket.join(room);
         console.log(helpers.prefix() + colors.debug('match-room created %s for: %s vs %s'), room, socket.id, id);
 
+        users[socket.id].status = 2;
+        users[id].status = 2;
+        io.to('lobby').emit('userList', {usersList: helpers.getUsersList(users)});
+
         io.to(room).emit('initGame', {
             match: room,
             user1: helpers.getUserData(users[socket.id]),
