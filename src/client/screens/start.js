@@ -55,25 +55,38 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         return holder;
     };
 
+    var _createTextHolder = function () {
+        var textHodler = document.createElement('div');
+        textHodler.setAttribute('id', 'text-holder');
+        return textHodler;
+    };
+
     var _createStartScreen = function () {
         var logo = _createLogo();
         var input = _createInput();
         var inputDiv = _createInputDiv();
+        var textHolder = _createTextHolder();
         _startScreen = _createHolder();
+        _startScreen.appendChild(textHolder);
+        var $textHolder = $(textHolder);
 
+        $textHolder.text('Help!');
         setTimeout(function() {
             _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
             setTimeout(function() {
+                $textHolder.text('Oh no, you\'re stuck.');
                 _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_2.jpg)';
                 _startScreen.style.boxShadow = 'none';
                 setTimeout(function() {
                     _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
                     setTimeout(function() {
+                        $textHolder.text('Let\'s team up & save him!');
                         _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_3.jpg)';
                         _startScreen.style.boxShadow = 'none';
                         setTimeout(function() {
                             _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
                             setTimeout(function() {
+                                $textHolder.text('');
                                 _startScreen.style.backgroundImage = 'url(../../src/img/bg_username.jpg)';
                                 _startScreen.style.boxShadow = 'none';
                                 inputDiv.appendChild(logo);
