@@ -25,7 +25,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _createGameScreenElements = function () {
         var itemData = {};
         _$gameMain = $('<div id="game-main-frame"></div>');
-        _itemHolder = new ItemHolder();
+        _itemHolder = new ItemHolder(eventHandler);
         if(gameData.user1.id === _socket.id){
             itemData = gameData.user1Items;
         } else {
@@ -34,7 +34,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         $.each(itemData,function(key, value){
             _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
         });
-        _wizardHolder = new IggjWizardsHolder(eventHandler);
+        _wizardHolder = new IggjWizardsHolder();
         _spellCrank = new IggjSpellCrank();
         _$gameMain.append(_wizardHolder.$getWizardsHolder());
         _$gameMain.append(_itemHolder.$getShelf());
