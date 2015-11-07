@@ -1,4 +1,4 @@
-IggjGolemPresenter = function() {
+IggjGolemPresenter = function(eventHandler) {
     var _$mainContainer = null;
     var _$golem = null;
     var _currentGolemStage = 0;
@@ -28,6 +28,7 @@ IggjGolemPresenter = function() {
         _currentGolemStage--;
         _$golem.css('background-image', 'url('+stagesImg[_currentGolemStage]+')');
         if(_currentGolemStage<0){
+            eventHandler('gameOver').publish();
             console.log('loose');
         }
     };

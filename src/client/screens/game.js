@@ -29,6 +29,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
 
         eventHandler('gameOver').subscribe(function(){
+            console.log('gameJS received game over');
             _socket.emit('gameEnded', gameData.match);
             eventHandler('returnToLobby').publish();
         });
@@ -40,9 +41,9 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _socket.on('startRound',_onRoundStarted);
     };
 
-    var _onRoundEnded = function(roundresult) {
-        console.log('round result :', roundresult)
-        if(roundresult) {
+    var _onRoundEnded = function(roundResult) {
+        console.log('round result :', roundResult)
+        if(roundResult) {
             _golemPresenter.increaseGolemStage();
         } else {
             _golemPresenter.decreaseGolemStage();
@@ -69,7 +70,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _wizardHolder = new IggjWizardsHolder();
         _spellCrank = new IggjSpellCrank();
         _taskBar = new IggjTaskBar();
-        _golemPresenter = new IggjGolemPresenter();
+        _golemPresenter = new IggjGolemPresenter(eventHandler);
         _$gameMain.append(_golemPresenter.$getGolemPresenter());
         _$gameMain.append(_wizardHolder.$getWizardsHolder());
         _$gameMain.append(_itemHolder.$getShelf());

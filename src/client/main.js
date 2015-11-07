@@ -34,7 +34,7 @@ var IggjGame = function () {
     var _createGameScreen = function (data) {
         console.log('start game screen');
         var game = new IggjGameScreen(_stageHandler, _eventHandler, _networkSocket, data);
-        _eventHandler('returnToLobby', function () {
+        _eventHandler('returnToLobby').subscribe(function () {
             game.destroy();
             _createLobby();
         });
