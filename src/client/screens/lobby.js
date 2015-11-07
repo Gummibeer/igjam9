@@ -8,6 +8,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     var _$overlay = null;
     var _myName = '';
     var _myId = '';
+    var _currentRequestId = '';
 
     var _init = function() {
         console.log('CREATE LOBBY');
@@ -48,11 +49,11 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _acceptRequest = function() {
-
+        _socket.emit('acceptRequest',_currentRequestId);
     };
 
     var _cancelRequest = function() {
-
+        _socket.emit('abortRequest',_currentRequestId);
     };
 
     var _onGameRequest = function(data) {
@@ -76,6 +77,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
 
     var _onUserItemClick = function (id, name) {
         console.log('requesting game with user ' + id + ' and name ' + name);
+        _currentRequestId = id;
         _socket.emit('requestGame',id);
         _showRequestScreen(false, name);
     };
@@ -92,7 +94,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _onRequestAborted = function() {
-        _$requestScreen.hide();
+        _$overlay.hide();
     };
 
     var _joinLobby = function(){
