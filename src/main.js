@@ -143,6 +143,9 @@ io.on('connection', function (socket) {
 
     socket.on('matchEnded', function (matchId) {
         console.log(helpers.prefix() + colors.debug('match %s has been ended'), matchId);
+        for(var key in matches[matchId].users){
+            users[matches[matchId].users[key]].socket.leave(matchId);
+        }
         delete matches[matchId];
     });
 });
