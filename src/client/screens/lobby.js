@@ -33,14 +33,15 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
         _$mainContainer.append(_$playerList);
         _$mainContainer.append(_$requestScreen);
         _$requestScreen.hide();
+        _$playerName.text('Dein Player-Name ist: ' + _myName);
         stageHandler.changeScreen(_$mainContainer);
     };
 
     var _createRequestScreen = function() {
         _$requestScreen = $('<div id="request-screen"></div>');
         _$requestScreen.append($('<div id="request-screen-player-id"></div>'));
-        _$requestScreen.append($('<div id="request-screen-ok-btn">Annehmen</div>').on('click',_acceptRequest));
-        _$requestScreen.append($('<div id="request-screen-cancel-btn">Ablehnen</div>').on('click',_cancelRequest));
+        _$requestScreen.append($('<div id="request-screen-ok-btn">Annehmen</div>').on('click',_acceptRequest).hide());
+        _$requestScreen.append($('<div id="request-screen-cancel-btn">Ablehnen</div>').on('click',_cancelRequest).hide());
     };
 
     var _acceptRequest = function() {
@@ -57,25 +58,27 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _onLobbyJoined = function(lobbyData) {
+        console.log('get new Userlist');
         $('.player-list-item').remove();
         $.each(lobbyData.usersList, function(key,value){
-            if( value.id !== _myId){
+            if( value.id !== _socket.id){
                 var $user = $('<div class="player-list-item">' + value.name + '</div>');
                 $user.on('click', function(){
-                    _onUserItemClick(value.id);
+                    _onUserItemClick(value.id, value.name);
                 });
                 _$playerList.append($user);
             }
         });
     };
 
-    var _onUserItemClick = function (id) {
-        console.log('requesting game with user ' + id);
+    var _onUserItemClick = function (id, name) {
+        console.log('requesting game with user ' + id + ' and name ' + name);
         _socket.emit('requestGame',id);
-        _showRequestScreen(false);
+        _showRequestScreen(false, name);
     };
 
     var _showRequestScreen = function (isRequested) {
+        $('request-screen-player-id').text('Frage Spiel bei Spieler ' + name + 'an.');
         if(isRequested){
             $('#request-screen-ok-btn').show();
             $('#request-screen-cancel-btn').show();
@@ -89,7 +92,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
 
     var _joinLobby = function(){
         console.log('Request Lobby Login');
-        _socket.emit('joinLobby', {id: _myId,name: _myName});
+        _socket.emit('joinLobby', _myName);
     };
 
     this.destroy = function() {
