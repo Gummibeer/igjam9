@@ -53,7 +53,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _onLobbyJoined = function(lobbyData) {
-        _$playerList.remove('.player-list-item');
+        $('.player-list-item').remove();
         $.each(lobbyData.usersList, function(key,value){
             var $user = $('<div class="player-list-item">' + value.name + '</div>');
             $user.on('click', function(){
@@ -79,6 +79,12 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     var _joinLobby = function(){
         console.log('Request Lobby Login')
         _socket.emit('joinLobby', localStorage.getItem('username'));
+    };
+
+    this.destroy = function() {
+        _socket.off('userList', _onLobbyJoined);
+        _socket.off('requestAborted', _onRequestAborted);
+        _socket.off('gameRequest', _onGameRequest);
     };
 
     _init();
