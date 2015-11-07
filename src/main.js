@@ -10,7 +10,7 @@ var question = require('./server/models/question.js');
 
 console.log(helpers.prefix() + 'starting game server');
 
-var port = 63350; //63350;
+var port = 666; //63350;
 var users = {};
 var matches = {};
 
@@ -87,7 +87,8 @@ io.on('connection', function (socket) {
 
         matches[room] = {
             ready: 0, // number of ready users - if it's 2 we can start a round
-            users: [ id, socket.id ],
+            success: false,
+            users: [id, socket.id],
             items: itemIds,
             questions: {}
         };
@@ -103,17 +104,23 @@ io.on('connection', function (socket) {
 
     socket.on('waitingForRound', function (matchId) {
         matches[matchId].ready++;
-        if(matches[matchId].ready == 2) {
+        if (matches[matchId].ready == 2) {
             matches[matchId].ready = 0;
             // TODO: send the questions
             io.to(matchId).emit('startRound', true);
             console.log(helpers.prefix() + colors.debug('start new round in match %s'), matchId);
+            setTimeout(function () {
+                console.log(helpers.prefix() + colors.debug('round ended [%s] in match %s'), matches[matchId].success, matchId);
+                io.to(matchId).emit('endRound', matches[matchId].success);
+            }, 5000);
         }
     });
 
     socket.on('itemSelected', function (data) {
         // data.match & data.itemId
         console.log(helpers.prefix() + colors.debug('user %s from match %s has used item #%s'), socket.id, data.match, data.itemId);
+        // TODO: check for right item and if the round is solved
+        socket.emit('newItem', {item: item.collection.random()});
     });
 });
 
