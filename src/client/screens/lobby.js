@@ -77,7 +77,7 @@ IggjLobbyScreen = function (stageHandler ,eventHandler, networkHandler) {
     };
 
     var _joinLobby = function(){
-        console.log('Request Lobby Login')
+        console.log('Request Lobby Login');
         _socket.emit('joinLobby', localStorage.getItem('username'));
     };
 
