@@ -2,6 +2,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _socket = null;
     var _$mainContainer = null;
+    var _$logo = null;
     var _$playerList = null;
     var _$playerLogout = null;
     var _$requestScreen = null;
@@ -29,13 +30,15 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _createUI = function () {
         _$mainContainer = $('<div id="lobby-main"></div>');
+        _$logo = $('<img src="src/img/logo.png" id="logo" />');
         _$playerList = $('<fieldset id="lobby-player-list"></fieldset>');
         var $label = $('<legend></legend>').text(_myName + ', Choose your mate');
         _$playerList.append($label);
-        _$playerLogout = $('<i id="lobby-player-logout" class="fa fa-power-off btn"></i>').on('click', _onPlayerLogoutClick);
+        _$playerLogout = $('<span id="lobby-player-logout" class="btn"></span>').on('click', _onPlayerLogoutClick);
         _createRequestScreen();
-        _$mainContainer.append(_$playerLogout);
+        _$mainContainer.append(_$logo);
         _$mainContainer.append(_$playerList);
+        _$mainContainer.append(_$playerLogout);
         _$mainContainer.append(_$overlay);
         _$overlay.hide();
         stageHandler.changeScreen(_$mainContainer);

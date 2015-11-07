@@ -47,6 +47,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _createHolder = function () {
         var holder = document.createElement('div');
+        holder.setAttribute('id', 'start-main');
         holder.style.position = 'absolute';
         holder.style.height = '100%';
         holder.style.width = '100%';
