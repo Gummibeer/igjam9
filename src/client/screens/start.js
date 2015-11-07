@@ -33,9 +33,6 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
                 eventHandler('startScreenFinished').publish();
             }
         });
-        input.addEventListener('focus', function () {
-            this.value = '';
-        });
         return input;
     };
 
