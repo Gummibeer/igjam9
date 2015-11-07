@@ -100,6 +100,21 @@ io.on('connection', function (socket) {
             user2Items: user2Items
         });
     });
+
+    socket.on('waitingForRound', function (matchId) {
+        matches[matchId].ready++;
+        if(matches[matchId].ready == 2) {
+            matches[matchId].ready = 0;
+            // TODO: send the questions
+            io.to(matchId).emit('startRound', true);
+            console.log(helpers.prefix() + colors.debug('start new round in match %s'), matchId);
+        }
+    });
+
+    socket.on('itemSelected', function (data) {
+        // data.match & data.itemId
+        console.log(helpers.prefix() + colors.debug('user %s from match %s has used item #%s'), socket.id, data.match, data.itemId);
+    });
 });
 
 // HTTP
@@ -152,18 +167,18 @@ stdin.addListener('data', function (d) {
 });
 
 // ITEMS
-item.collection.add(1, 'Item #1', 'url');
-item.collection.add(2, 'Item #2', 'url');
-item.collection.add(3, 'Item #3', 'url');
-item.collection.add(4, 'Item #4', 'url');
-item.collection.add(5, 'Item #5', 'url');
-item.collection.add(6, 'Item #6', 'url');
-item.collection.add(7, 'Item #7', 'url');
-item.collection.add(8, 'Item #8', 'url');
-item.collection.add(9, 'Item #9', 'url');
-item.collection.add(10, 'Item #10', 'url');
-item.collection.add(11, 'Item #11', 'url');
-item.collection.add(12, 'Item #12', 'url');
+item.collection.add(1, 'Item #1', 'src/img/dummy/1.png');
+item.collection.add(2, 'Item #2', 'src/img/dummy/2.png');
+item.collection.add(3, 'Item #3', 'src/img/dummy/3.png');
+item.collection.add(4, 'Item #4', 'src/img/dummy/4.png');
+item.collection.add(5, 'Item #5', 'src/img/dummy/5.png');
+item.collection.add(6, 'Item #6', 'src/img/dummy/6.png');
+item.collection.add(7, 'Item #7', 'src/img/dummy/7.png');
+item.collection.add(8, 'Item #8', 'src/img/dummy/8.png');
+item.collection.add(9, 'Item #9', 'src/img/dummy/9.png');
+item.collection.add(10, 'Item #10', 'src/img/dummy/10.png');
+item.collection.add(11, 'Item #11', 'src/img/dummy/11.png');
+item.collection.add(12, 'Item #12', 'src/img/dummy/12.png');
 
 // QUESTIONS
 question.collection.add(1, 'Wirf Item #1 in den Topf', 1);
