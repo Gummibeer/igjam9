@@ -59,7 +59,7 @@ io.on('connection', function (socket) {
         socket.to(room).emit('initGame', {
             match: room,
             user1: helpers.getUserData(users[socket.id]),
-            user2: helpers.getUserData(users[id]),
+            user2: helpers.getUserData(users[id])
         });
     });
 });
