@@ -170,11 +170,11 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     this.destroy = function () {
+        _spellCrank &&_spellCrank.destroy();
+        _golemPresenter &&_golemPresenter.destroy();
+        _itemHolder && _itemHolder.destroy();
         document.getElementById('game_screen').pause();
         _currentTask = null;
-        _spellCrank.destroy();
-        _golemPresenter.destroy();
-        _itemHolder.destroy();
         _socket.off('newItem');
         _socket.off('endRound');
         _socket.off('startRound');
