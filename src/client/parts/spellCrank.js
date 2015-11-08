@@ -1,4 +1,4 @@
-var IggjSpellCrank = function () {
+var IggjSpellCrank = function (eventHandler) {
 
     var _$mainContainer = null;
     var _interval = null;
@@ -34,6 +34,7 @@ var IggjSpellCrank = function () {
             _currentPicture = 1;
         }
         document.getElementById('spell-crank').className = 'spellcrank-' + _currentPicture;
+        eventHandler('spellCrankUsed').publish();
     };
 
     var _startInterval = function () {
@@ -46,7 +47,7 @@ var IggjSpellCrank = function () {
 
     this.setCrank = function (crank, time, callback) {
         _crankEndTime = new Date().getTime() + time * 1000;
-    }
+    };
 
     this.$getSpellCrank = function () {
         return _$mainContainer;

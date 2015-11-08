@@ -28,7 +28,6 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
     var _initListeners = function () {
         eventHandler('itemClicked').subscribe(function (element) {
-            console.log(_roundDecisionCounter);
             if (_roundDecisionCounter < 2) {
                 console.log('removing item with id', $(element).attr('item-id'));
                 var itemId = $(element).attr('item-id');
@@ -37,6 +36,13 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
                 $(element).removeAttr('item-id');
                 $(element).off('click');
                 _socket.emit('itemSelected', {match: gameData.match, itemId: itemId});
+                _roundDecisionCounter++;
+            }
+        });
+
+        eventHandler('spellCrankUsed').subscribe(function () {
+            if (_roundDecisionCounter < 2) {
+                _socket.emit('spellCrankUsed', {match: gameData.match});
                 _roundDecisionCounter++;
             }
         });
@@ -120,7 +126,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
             _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
         });
         _wizardHolder = new IggjWizardsHolder();
-        _spellCrank = new IggjSpellCrank();
+        _spellCrank = new IggjSpellCrank(eventHandler);
         _taskBar = new IggjTaskBar();
         _timer = new IggjTimer();
         _golemPresenter = new IggjGolemPresenter(eventHandler);

@@ -91,6 +91,7 @@ io.on('connection', function (socket) {
             responded: [],
             users: [id, socket.id],
             items: itemIds,
+            openCranks: 0,
             questions: {}
         };
 
@@ -108,17 +109,31 @@ io.on('connection', function (socket) {
         if (matches[matchId].ready == 2) {
             matches[matchId].ready = 0;
             do {
-                matches[matchId].questions[0] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
+                if(Math.random() <= 0.25) {
+                    matches[matchId].questions[0] = question.collection.getById(50);
+                    matches[matchId].openCranks++;
+                } else {
+                    matches[matchId].questions[0] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
+                }
             } while (typeof matches[matchId].questions[0] === 'undefined');
             do {
-                matches[matchId].questions[1] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
+                if(Math.random() <= 0.25) {
+                    matches[matchId].questions[1] = question.collection.getById(50);
+                    matches[matchId].openCranks++;
+                } else {
+                    matches[matchId].questions[1] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
+                }
             } while (typeof matches[matchId].questions[1] === 'undefined');
+            console.log('open cranks', matches[matchId].openCranks);
             for (var key in matches[matchId].users) {
                 users[matches[matchId].users[key]].socket.emit('startRound', {task: matches[matchId].questions[key]});
             }
             console.log(helpers.prefix() + colors.debug('start new round in match %s'), matchId);
             setTimeout(function () {
                 if (matches[matchId].responded < 2) {
+                    matches[matchId].success = false;
+                }
+                if(matches[matchId].openCranks > 0) {
                     matches[matchId].success = false;
                 }
                 io.to(matchId).emit('endRound', matches[matchId].success);
@@ -139,6 +154,12 @@ io.on('connection', function (socket) {
         var newItem = item.collection.random();
         matches[data.match].items.push('' + newItem.id);
         socket.emit('newItem', {item: newItem});
+    });
+
+    socket.on('spellCrankUsed', function (data) {
+        matches[data.match].responded++;
+        console.log(helpers.prefix() + colors.debug('user %s from match %s has used the spell crank'), socket.id, data.match);
+        matches[data.match].openCranks--;
     });
 
     socket.on('matchEnded', function (matchId) {
@@ -228,3 +249,5 @@ question.collection.add(10, 'Add a delicous Sukkubus-Wing', 10);
 question.collection.add(11, 'Add a knocked out Vampire Tooth', 11);
 question.collection.add(12, 'Add a fresh cutted Gremmlin Head', 12);
 question.collection.add(13, 'Add an odd Sukkubus-Ass', 13);
+
+question.collection.add(50, 'Use the Spell Crank', null);
