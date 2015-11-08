@@ -95,7 +95,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         clearInterval(_timerInterval)
         that.destroy();
         var $gameWon = $('<div id="game-won"></div>');
-        $gameWon.css('background-image', 'url(src/img/bg_win.jpg)')
+        $gameWon.css('background-image', 'url(src/img/bg_win.gif)')
         stageHandler.changeScreen($gameWon);
         setTimeout(callback, 5000);
     };
