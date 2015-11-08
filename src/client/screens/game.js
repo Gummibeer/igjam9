@@ -69,7 +69,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _onDisconnected = function() {
         console.log('Game: Disconnected / Kicked');
         var $gameOver = $('<div id="game-over"></div>');
-        $gameOver.css('background-image', 'url(src/img/spiel_weg_screen.jpg)')
+        $gameOver.css('background-image', 'url(src/img/spieler_weg_screen.jpg)')
         stageHandler.changeScreen($gameOver);
         setTimeout(function(){eventHandler('returnToLobby').publish()}, 5000);
     };
