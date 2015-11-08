@@ -80,9 +80,9 @@ io.on('connection', function (socket) {
             item.collection.random()
         ];
         var itemIds = [].concat(user2Items.map(function (item) {
-            return ''+item.id;
+            return '' + item.id;
         }), user1Items.map(function (item) {
-            return ''+item.id;
+            return '' + item.id;
         }));
         console.log(itemIds);
 
@@ -108,11 +108,14 @@ io.on('connection', function (socket) {
         matches[matchId].ready++;
         if (matches[matchId].ready == 2) {
             matches[matchId].ready = 0;
-            // TODO: send the questions
-            matches[matchId].questions[0] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random()*matches[matchId].items.length -1)]);
-            matches[matchId].questions[1] = question.collection.getByItem(matches[matchId].items[Math.ceil(Math.random()*matches[matchId].items.length -1)]);
-            for(var key in matches[matchId].users){
-               users[matches[matchId].users[key]].socket.emit('startRound', {task: matches[matchId].questions[key]});
+            do {
+                matches[matchId].questions[0] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
+            } while (typeof matches[matchId].questions[0] === 'undefined');
+            do {
+                matches[matchId].questions[1] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
+            } while (typeof matches[matchId].questions[1] === 'undefined');
+            for (var key in matches[matchId].users) {
+                users[matches[matchId].users[key]].socket.emit('startRound', {task: matches[matchId].questions[key]});
             }
             console.log(helpers.prefix() + colors.debug('start new round in match %s'), matchId);
             setTimeout(function () {
@@ -130,20 +133,19 @@ io.on('connection', function (socket) {
     socket.on('itemSelected', function (data) {
         matches[data.match].responded++;
         console.log(helpers.prefix() + colors.debug('user %s from match %s has used item #%s'), socket.id, data.match, data.itemId);
-        matches[data.match].items.splice(matches[data.match].items.indexOf(''+data.itemId), 1);
-        console.log('mop',matches[data.match].questions[0]);
-        if((matches[data.match].questions[0].itemId != data.itemId) && (matches[data.match].questions[1].itemId != data.itemId)) {
+        matches[data.match].items.splice(matches[data.match].items.indexOf('' + data.itemId), 1);
+        console.log('mop', matches[data.match].questions[0]);
+        if ((matches[data.match].questions[0].itemId != data.itemId) && (matches[data.match].questions[1].itemId != data.itemId)) {
             matches[data.match].success = false;
         }
         var newItem = item.collection.random();
-        matches[data.match].items.push(''+newItem.id);
-        console.log(matches[data.match].items);
+        matches[data.match].items.push('' + newItem.id);
         socket.emit('newItem', {item: newItem});
     });
 
     socket.on('matchEnded', function (matchId) {
         console.log(helpers.prefix() + colors.debug('match %s has been ended'), matchId);
-        for(var key in matches[matchId].users){
+        for (var key in matches[matchId].users) {
             users[matches[matchId].users[key]].socket.leave(matchId);
         }
         delete matches[matchId];
