@@ -141,6 +141,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
         _socket.off('requestAborted');
         _socket.off('gameRequest');
         _socket.off('disconnect');
+        document.getElementById('lobby_screen').pause(); // 122sec
     };
 
     _init();
