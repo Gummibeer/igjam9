@@ -36,6 +36,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
 
         eventHandler('spellCrankUsed').subscribe(function () {
+
             _socket.emit('spellCrankUsed', {match: gameData.match});
         });
 
@@ -144,7 +145,6 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _$gameMain.append(_spellCrank.$getSpellCrank());
         _$gameMain.append(_taskBar.$getTaskbar());
         _$gameMain.append(_timer.$getGolemPresenter());
-
         stageHandler.changeScreen(_$gameMain);
     };
 
