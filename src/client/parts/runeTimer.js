@@ -24,13 +24,15 @@ IggjTimer = function() {
     };
 
     this.decreaseRunes = function() {
-        (_runes > 0) && _runes--;
-        _$mainContainer.css('background-image', 'url('+stagesImg[_currentGolemStage]+')');
+        console.log('decrease runes');
+        _runes--;
+        _$mainContainer.css('background-image', 'url('+stagesImg[_runes]+')');
 
     };
 
     this.reset = function() {
         _runes = 10;
+        _$mainContainer.css('background-image', 'url('+stagesImg[_runes]+')');
     };
 
     this.decreaseRunes = function() {

@@ -123,7 +123,7 @@ io.on('connection', function (socket) {
                 console.log(helpers.prefix() + colors.debug('round ended [%s] in match %s'), matches[matchId].success, matchId);
                 matches[matchId].success = true;
                 matches[matchId].responded = 0;
-            }, 5000);
+            }, 5500);
         }
     });
 

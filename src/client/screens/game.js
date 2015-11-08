@@ -3,6 +3,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _itemHolder = null;
     var _wizardHolder = null;
     var _golemPresenter = null;
+    var _timer = null;
+    var _timerInterval = null;
     var _spellCrank = null;
     var _taskBar = null;
     var _socket = null;
@@ -84,6 +86,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         } else {
             _golemPresenter.decreaseGolemStage();
         }
+        clearInterval(_timerInterval);
+        _timer.reset();
         _socket.emit('waitingForRound',gameData.match);
     };
 
@@ -91,6 +95,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _madeADecisonThisRound = false;
         _itemHolder.allowedToClick = true;
         _taskBar.setTask(data.task && data.task.message);
+        _timer.reset();
+        _timerInterval = setInterval(_timer.decreaseRunes, 490);
     };
 
     var _createGameScreenElements = function () {
@@ -108,12 +114,14 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _wizardHolder = new IggjWizardsHolder();
         _spellCrank = new IggjSpellCrank();
         _taskBar = new IggjTaskBar();
+        _timer = new IggjTimer();
         _golemPresenter = new IggjGolemPresenter(eventHandler);
         _$gameMain.append(_golemPresenter.$getGolemPresenter());
         _$gameMain.append(_wizardHolder.$getWizardsHolder());
         _$gameMain.append(_itemHolder.$getShelf());
         _$gameMain.append(_spellCrank.$getSpellCrank());
         _$gameMain.append(_taskBar.$getTaskbar());
+        _$gameMain.append(_timer.$getGolemPresenter());
 
         stageHandler.changeScreen(_$gameMain);
     };
