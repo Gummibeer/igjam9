@@ -136,10 +136,21 @@ io.on('connection', function (socket) {
                 if(matches[matchId].openCranks > 0) {
                     matches[matchId].success = false;
                 }
+
+                if(!(matches[matchId].questions[0].success) && matches[matchId].questions[0].itemId != null){
+                    matches[matchId].success = false;
+                }
+
+                if(!(matches[matchId].questions[1].success) && matches[matchId].questions[1].itemId != null){
+                    matches[matchId].success = false;
+                }
+
                 io.to(matchId).emit('endRound', matches[matchId].success);
+
                 console.log(helpers.prefix() + colors.debug('round ended [%s] in match %s'), matches[matchId].success, matchId);
                 matches[matchId].success = true;
                 matches[matchId].responded = 0;
+                matches[matchId].openCranks = 0;
             }, 5500);
         }
     });
@@ -150,6 +161,10 @@ io.on('connection', function (socket) {
         matches[data.match].items.splice(matches[data.match].items.indexOf('' + data.itemId), 1);
         if ((matches[data.match].questions[0].itemId != data.itemId) && (matches[data.match].questions[1].itemId != data.itemId)) {
             matches[data.match].success = false;
+        } else if ((matches[data.match].questions[0].itemId == data.itemId) && (!matches[data.match].questions[0].success)) {
+            matches[data.match].questions[0].success = true;
+        } else if ((matches[data.match].questions[1].itemId == data.itemId) && (!matches[data.match].questions[1].success)) {
+            matches[data.match].questions[1].success = true;
         }
         var newItem = item.collection.random();
         matches[data.match].items.push('' + newItem.id);
