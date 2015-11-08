@@ -9,7 +9,7 @@ IggjGolemPresenter = function (eventHandler) {
         'src/img/golem/2.png',
         'src/img/golem/3.png',
         'src/img/golem/4.png',
-        'src/img/golem/5.png',
+        'src/img/golem/5_anim.gif',
         'src/img/golem/6.png'
     ];
 
