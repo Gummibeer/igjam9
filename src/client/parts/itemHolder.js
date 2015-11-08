@@ -1,24 +1,24 @@
-var ItemHolder =  function(eventHandler) {
+var ItemHolder = function (eventHandler) {
 
     var $shelf = null;
 
-    var _init = function() {
+    var _init = function () {
         $shelf = $('<div id="game-itemholder"></div>');
-        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty',true));
-        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty',true));
-        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty',true));
-        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty',true));
+        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty', true));
+        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty', true));
+        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty', true));
+        $shelf.append($('<div class="shelf-item"></div>').attr('data-empty', true));
     };
 
-    this.$getShelf = function() {
+    this.$getShelf = function () {
         return $shelf;
     };
 
-    this.addItem = function(item) {
-        if(item) {
+    this.addItem = function (item) {
+        if (item) {
             var $newItem = $shelf.find('[data-empty]').first();
             console.log($newItem);
-            $newItem.css('background-Image', 'url('+item.img+')');
+            $newItem.css('background-Image', 'url(' + item.img + ')');
             $newItem.attr('item-id', item.id);
             $newItem.removeAttr('data-empty');
             $newItem.on('click', _onItemClick);
@@ -26,7 +26,7 @@ var ItemHolder =  function(eventHandler) {
         }
     };
 
-    var _onItemClick = function() {
+    var _onItemClick = function () {
         eventHandler('itemClicked').publish(this);
     };
 

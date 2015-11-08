@@ -30,7 +30,7 @@ var IggjGame = function () {
         socket.off('initGame');
         socket.on('initGame', function (data) {
             console.log('init game ', data);
-            _currentLobbyScreen &&_currentLobbyScreen.destroy();
+            _currentLobbyScreen && _currentLobbyScreen.destroy();
             _currentLobbyScreen = null;
             _createGameScreen(data);
         });

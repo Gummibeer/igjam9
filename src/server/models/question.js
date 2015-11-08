@@ -15,8 +15,8 @@ exports.collection = {
         };
     },
     getByItem: function (itemId) {
-        for(var key in this.items) {
-            if(this.items[key].itemId == itemId) {
+        for (var key in this.items) {
+            if (this.items[key].itemId == itemId) {
                 return this.items[key];
             }
         }

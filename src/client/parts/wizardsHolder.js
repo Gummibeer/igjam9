@@ -1,4 +1,4 @@
-var IggjWizardsHolder = function() {
+var IggjWizardsHolder = function () {
 
     var _$mainContainer = null;
     var _$spellInput = null;
@@ -9,24 +9,24 @@ var IggjWizardsHolder = function() {
     var _spellEndTime = 0;
     var _callback = null;
 
-    var _init = function() {
+    var _init = function () {
         _createWizardsHolder();
     };
 
-    this.setSpell = function(spell, time, callback) {
+    this.setSpell = function (spell, time, callback) {
         _callback = callback;
         _currentSpell = spell;
-        _spellEndTime = new Date().getTime()+time*1000;
+        _spellEndTime = new Date().getTime() + time * 1000;
     };
 
-    var _createWizardsHolder = function() {
+    var _createWizardsHolder = function () {
         _$mainContainer = $('<div id="spellbook-container"></div>');
         _$spellBook = $('<div id="spell-book"></div>');
         _$spellInput = $('<input id="spell-input" type = "text" />');
         _$spellInput.on('keypress', function (e) {
             if (e.keyCode === KEY_ENTER) {
                 _spellEnterTime = new Date().getTime();
-                if((_$spellInput.value == _currentSpell) && (_spellEnterTime < _spellEndTime)) {
+                if ((_$spellInput.value == _currentSpell) && (_spellEnterTime < _spellEndTime)) {
                     _callback(1);
                 } else {
                     _callback(0);
@@ -38,7 +38,7 @@ var IggjWizardsHolder = function() {
         _$mainContainer.append(_$spellInput);
     };
 
-    this.$getWizardsHolder = function() {
+    this.$getWizardsHolder = function () {
         return _$mainContainer;
     };
 

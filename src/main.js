@@ -84,7 +84,6 @@ io.on('connection', function (socket) {
         }), user1Items.map(function (item) {
             return '' + item.id;
         }));
-        console.log(itemIds);
 
         matches[room] = {
             ready: 0, // number of ready users - if it's 2 we can start a round
@@ -134,7 +133,6 @@ io.on('connection', function (socket) {
         matches[data.match].responded++;
         console.log(helpers.prefix() + colors.debug('user %s from match %s has used item #%s'), socket.id, data.match, data.itemId);
         matches[data.match].items.splice(matches[data.match].items.indexOf('' + data.itemId), 1);
-        console.log('mop', matches[data.match].questions[0]);
         if ((matches[data.match].questions[0].itemId != data.itemId) && (matches[data.match].questions[1].itemId != data.itemId)) {
             matches[data.match].success = false;
         }

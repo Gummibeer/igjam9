@@ -71,21 +71,21 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
         var $textHolder = $(textHolder);
 
         $textHolder.text('Help!');
-        setTimeout(function() {
+        setTimeout(function () {
             _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
-            setTimeout(function() {
+            setTimeout(function () {
                 $textHolder.text('Oh no, you\'re stuck.');
                 _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_2.jpg)';
                 _startScreen.style.boxShadow = 'none';
-                setTimeout(function() {
+                setTimeout(function () {
                     _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
-                    setTimeout(function() {
+                    setTimeout(function () {
                         $textHolder.text('Let\'s team up & save him!');
                         _startScreen.style.backgroundImage = 'url(../../src/img/bg_intro_3.jpg)';
                         _startScreen.style.boxShadow = 'none';
-                        setTimeout(function() {
+                        setTimeout(function () {
                             _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $textHolder.text('');
                                 _startScreen.style.backgroundImage = 'url(../../src/img/bg_username.jpg)';
                                 _startScreen.style.boxShadow = 'none';

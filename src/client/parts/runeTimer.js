@@ -1,4 +1,4 @@
-IggjTimer = function() {
+IggjTimer = function () {
     var _$mainContainer = null;
     var _runes = 10;
     var stagesImg = [
@@ -15,32 +15,32 @@ IggjTimer = function() {
         'src/img/runen/10.png'
     ];
 
-    $.each(stagesImg, function(k,v){
+    $.each(stagesImg, function (k, v) {
         var img = new Image(v);
         img.src = v;
     });
 
-    var _init = function() {
+    var _init = function () {
         _$mainContainer = $('<div id="rune-container"></div>');
     };
 
-    this.$getGolemPresenter = function() {
+    this.$getGolemPresenter = function () {
         return _$mainContainer;
     };
 
-    this.reset = function() {
+    this.reset = function () {
         _runes = 10;
-        _$mainContainer.css('background-image', 'url('+stagesImg[_runes]+')');
+        _$mainContainer.css('background-image', 'url(' + stagesImg[_runes] + ')');
     };
 
-    this.decreaseRunes = function() {
+    this.decreaseRunes = function () {
         console.log('decrease runes');
         _runes--;
-        _$mainContainer.css('background-image', 'url('+stagesImg[_runes]+')');
+        _$mainContainer.css('background-image', 'url(' + stagesImg[_runes] + ')');
 
     };
 
-    this.increaseRunes = function() {
+    this.increaseRunes = function () {
         _runes++;
     };
 
