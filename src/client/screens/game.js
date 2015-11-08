@@ -32,7 +32,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
             $(element).css('background-Image', 'none');
             $(element).removeAttr('item-id');
             $(element).off('click');
-            if(itemId === _currentTask.task.id) {
+            console.log(itemId, 'la', _currentTask.task.id, _currentTask.task);
+            if(itemId == _currentTask.task.id) {
                 _taskBar.setTask('You have succeded!');
             } else {
                 _taskBar.setTask('This was wrong!');
@@ -50,6 +51,11 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
 
         eventHandler('spellBookUsed').subscribe(function () {
+            if(_currentTask.task.message === 'Use the Spell Book') {
+                _taskBar.setTask('You have succeded!');
+            } else {
+                _taskBar.setTask('This was wrong!');
+            }
             _socket.emit('spellBookUsed', {match: gameData.match});
         });
 
