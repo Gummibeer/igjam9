@@ -10,6 +10,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     var _myName = '';
     var _myId = '';
     var _currentRequestId = '';
+    var _abortRequestTimeout = null;
 
     var _init = function () {
         console.log('CREATE LOBBY');
@@ -46,6 +47,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _onPlayerLogoutClick = function () {
         console.log('logout and destroy session');
+        clearInterval(_abortRequestTimeout);
         localStorage.removeItem('username');
         _socket.emit('disconnect');
     };
@@ -60,10 +62,12 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     };
 
     var _acceptRequest = function () {
+        clearInterval(_abortRequestTimeout);
         _socket.emit('acceptRequest', _currentRequestId);
     };
 
     var _cancelRequest = function () {
+        clearInterval(_abortRequestTimeout);
         _$overlay.hide();
         _socket.emit('abortRequest', _currentRequestId);
     };
@@ -106,12 +110,13 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
             $('#request-screen-player-id').text('Frage Spiel bei Spieler ' + name + ' an.').append('<div><i class="fa fa-2x fa-spinner fa-pulse"></i></div>');
         }
         _$overlay.show();
-        setTimeout(function () {
+        _abortRequestTimeout = setTimeout(function () {
             _cancelRequest();
         }, (60 * 1000));
     };
 
     var _onRequestAborted = function () {
+        clearInterval(_abortRequestTimeout);
         _$overlay.hide();
     };
 
@@ -126,6 +131,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     };
 
     this.destroy = function () {
+        clearInterval(_abortRequestTimeout);
         _socket.off('userList', _onLobbyJoined);
         _socket.off('requestAborted', _onRequestAborted);
         _socket.off('gameRequest', _onGameRequest);
