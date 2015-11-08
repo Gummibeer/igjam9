@@ -35,13 +35,17 @@ IggjTimer = function () {
 
     this.decreaseRunes = function () {
         console.log('decrease runes');
-        _runes--;
-        _$mainContainer.css('background-image', 'url(' + stagesImg[_runes] + ')');
-
+        if(_runes > 0){
+            _runes--;
+            _$mainContainer.css('background-image', 'url(' + stagesImg[_runes] + ')');
+        }
     };
 
     this.increaseRunes = function () {
-        _runes++;
+        if(runes < 10) {
+            _runes++;
+        }
+
     };
 
 

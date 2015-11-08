@@ -10,6 +10,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _socket = null;
     var _myId = null;
     var _roundDecisionCounter = 0;
+    var _gameFinished = false;
     var that = this;
 
     //TODO: nur einmal klickbar pro round (ckeck)
@@ -49,7 +50,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
         eventHandler('gameOver').subscribe(function () {
             console.log('gamescreen receiver game over');
-            console.log('gameJS received game over');
+            _gameFinished = true;
             _socket.emit('gameEnded', gameData.match);
             _showGameOver(function () {
                 _socket.emit('disconnect');
@@ -59,6 +60,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
         eventHandler('gameWon').subscribe(function () {
             console.log('gameJS received game won');
+            _gameFinished = true;
             _socket.emit('gameEnded', gameData.match);
             _showGameWon(function () {
                 _socket.emit('disconnect');
@@ -71,6 +73,15 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
         _socket.on('endRound', _onRoundEnded);
         _socket.on('startRound', _onRoundStarted);
+        _socket.on('disconnect', _onDisconnected);
+    };
+
+    var _onDisconnected = function() {
+        console.log('Game: Disconnected / Kicked');
+        var $gameOver = $('<div id="game-over"></div>');
+        $gameOver.css('background-image', 'url(src/img/bg_loose.jpg)')
+        stageHandler.changeScreen($gameOver);
+        setTimeout(function(){eventHandler('returnToLobby').publish()}, 5000);
     };
 
     var _showGameOver = function (callback) {
@@ -144,6 +155,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _socket.off('newItem');
         _socket.off('endRound');
         _socket.off('startRound');
+        _socket.off('disconnect');
         eventHandler('itemClicked').unsubscribe();
         eventHandler('gameOver').unsubscribe();
         eventHandler('gameWon').unsubscribe();

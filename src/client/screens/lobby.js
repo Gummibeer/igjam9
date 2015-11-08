@@ -121,7 +121,6 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _onDisconnected = function () {
         console.log('Disconnected / Kicked');
-        localStorage.removeItem('username');
         location.reload();
     };
 
