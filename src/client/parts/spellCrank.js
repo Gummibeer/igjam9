@@ -6,7 +6,7 @@ var IggjSpellCrank = function() {
     var _currentPicture = 1;
     var _crankEndTime = 0;
     var _crankEnterTime = 0;
-    var INTERVAL = 500;
+    var INTERVAL = 150;
 
     var _init = function() {
         _createSpellCrank();
@@ -33,9 +33,7 @@ var IggjSpellCrank = function() {
         if(_currentPicture === 5) {
             _currentPicture = 1;
         }
-        console.log('next');
         document.getElementById('spell-crank').className = 'spellcrank-'+_currentPicture;
-        console.log(_$mainContainer.className);
     };
 
     var _startInterval = function() {
