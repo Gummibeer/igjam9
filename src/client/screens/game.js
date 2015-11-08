@@ -96,7 +96,9 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _itemHolder.allowedToClick = true;
         _taskBar.setTask(data.task && data.task.message);
         _timer.reset();
-        _timerInterval = setInterval(_timer.decreaseRunes, 490);
+        _timerInterval  = setInterval(function(){
+            _timer.decreaseRunes();
+        }, 510);
     };
 
     var _createGameScreenElements = function () {

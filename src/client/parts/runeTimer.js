@@ -16,11 +16,20 @@ IggjTimer = function() {
     ];
 
     var _init = function() {
+        $.each(stagesImg, function(k,v){
+            var img = new Image(v);
+            img.src = v;
+        });
         _$mainContainer = $('<div id="rune-container"></div>');
     };
 
     this.$getGolemPresenter = function() {
         return _$mainContainer;
+    };
+
+    this.reset = function() {
+        _runes = 10;
+        _$mainContainer.css('background-image', 'url('+stagesImg[_runes]+')');
     };
 
     this.decreaseRunes = function() {
@@ -30,12 +39,7 @@ IggjTimer = function() {
 
     };
 
-    this.reset = function() {
-        _runes = 10;
-        _$mainContainer.css('background-image', 'url('+stagesImg[_runes]+')');
-    };
-
-    this.decreaseRunes = function() {
+    this.increaseRunes = function() {
         _runes++;
     };
 
