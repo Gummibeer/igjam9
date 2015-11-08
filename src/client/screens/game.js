@@ -119,8 +119,10 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         console.log('round result :', roundResult)
         _currentTask = null;
         if (roundResult) {
+            _taskBar.setTask('You have succeded');
             _golemPresenter.increaseGolemStage();
         } else {
+            _taskBar.setTask('This was wrong');
             _golemPresenter.decreaseGolemStage();
         }
         clearInterval(_timerInterval);
