@@ -9,7 +9,6 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _taskBar = null;
     var _socket = null;
     var _myId = null;
-    var _roundDecisionCounter = 0;
     var _gameFinished = false;
     var that = this;
 
@@ -25,23 +24,17 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
     var _initListeners = function () {
         eventHandler('itemClicked').subscribe(function (element) {
-            if (_roundDecisionCounter < 2) {
-                console.log('removing item with id', $(element).attr('item-id'));
-                var itemId = $(element).attr('item-id');
-                $(element).attr('data-empty', true);
-                $(element).css('background-Image', 'none');
-                $(element).removeAttr('item-id');
-                $(element).off('click');
-                _socket.emit('itemSelected', {match: gameData.match, itemId: itemId});
-                _roundDecisionCounter++;
-            }
+            console.log('removing item with id', $(element).attr('item-id'));
+            var itemId = $(element).attr('item-id');
+            $(element).attr('data-empty', true);
+            $(element).css('background-Image', 'none');
+            $(element).removeAttr('item-id');
+            $(element).off('click');
+            _socket.emit('itemSelected', {match: gameData.match, itemId: itemId});
         });
 
         eventHandler('spellCrankUsed').subscribe(function () {
-            if (_roundDecisionCounter < 2) {
-                _socket.emit('spellCrankUsed', {match: gameData.match});
-                _roundDecisionCounter++;
-            }
+            _socket.emit('spellCrankUsed', {match: gameData.match});
         });
 
         eventHandler('gameOver').subscribe(function () {
@@ -113,7 +106,6 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     var _onRoundStarted = function (data) {
-        _roundDecisionCounter = 0;
         _itemHolder.allowedToClick = true;
         _taskBar.setTask(data.task && data.task.message);
         _timer.reset();
