@@ -4,6 +4,7 @@ var IggjWizardsHolder = function (eventHandler) {
     var _$spellBook = null;
     var _currentSpell = null;
     var _callback = null;
+    var _audio = document.getElementById('spell_book');
 
     var _init = function () {
         _createWizardsHolder();
@@ -19,6 +20,7 @@ var IggjWizardsHolder = function (eventHandler) {
         _$spellBook = $('<div id="spell-book"></div>');
         _$mainContainer.append(_$spellBook);
         _$spellBook.on('click', function () {
+            _audio.play();
             eventHandler('spellBookUsed').publish();
             _$spellBook.addClass('active');
             setTimeout(function () {
