@@ -2,11 +2,9 @@ var IggjSpellCrank = function (eventHandler) {
 
     var _$mainContainer = null;
     var _interval = null;
-    var _crankStatus = '';
     var _currentPicture = 1;
-    var _crankEndTime = 0;
-    var _crankEnterTime = 0;
     var INTERVAL = 150;
+    var _audio = document.getElementById('spell_crank');
 
     var _init = function () {
         _createSpellCrank();
@@ -31,6 +29,7 @@ var IggjSpellCrank = function (eventHandler) {
 
     var _nextBackground = function () {
         _currentPicture++;
+        _audio.play();
         if (_currentPicture === 5) {
             _currentPicture = 1;
         }
@@ -44,10 +43,6 @@ var IggjSpellCrank = function (eventHandler) {
 
     var _stopInterval = function () {
         clearInterval(_interval);
-    };
-
-    this.setCrank = function (crank, time, callback) {
-        _crankEndTime = new Date().getTime() + time * 1000;
     };
 
     this.$getSpellCrank = function () {
