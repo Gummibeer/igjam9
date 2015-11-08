@@ -2,7 +2,7 @@ IggjGolemPresenter = function (eventHandler) {
     var _$mainContainer = null;
     var _$golem = null;
     var _currentGolemStage = 0;
-    var _stageToWin = 6;
+    var _stageToWin = 7;
     var stagesImg = [
         'src/img/golem/0.png',
         'src/img/golem/1.png',
