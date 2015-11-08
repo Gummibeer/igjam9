@@ -9,7 +9,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _taskBar = null;
     var _socket = null;
     var _myId = null;
-    var _madeADecisonThisRound = false;
+    var _roundDecisionCounter = 0;
     var that = this;
 
     //TODO: nur einmal klickbar pro round (ckeck)
@@ -28,9 +28,10 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
     var _initListeners = function() {
         eventHandler('itemClicked').subscribe(function(itemId){
-            if(!_madeADecisonThisRound){
+            if(_roundDecisionCounter < 2){
                 _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
-                _madeADecisonThisRound = true;
+                _roundDecisionCounter++;
+            } else {
                 _itemHolder.allowedToClick = false;
             }
         });
@@ -92,7 +93,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     var _onRoundStarted = function(data) {
-        _madeADecisonThisRound = false;
+        _roundDecisionCounter = 0;
         _itemHolder.allowedToClick = true;
         _taskBar.setTask(data.task && data.task.message);
         _timer.reset();

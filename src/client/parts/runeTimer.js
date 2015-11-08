@@ -15,11 +15,12 @@ IggjTimer = function() {
         'src/img/runen/10.png'
     ];
 
+    $.each(stagesImg, function(k,v){
+        var img = new Image(v);
+        img.src = v;
+    });
+
     var _init = function() {
-        $.each(stagesImg, function(k,v){
-            var img = new Image(v);
-            img.src = v;
-        });
         _$mainContainer = $('<div id="rune-container"></div>');
     };
 
