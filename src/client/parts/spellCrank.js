@@ -53,6 +53,7 @@ var IggjSpellCrank = function (eventHandler) {
 
     this.destroy = function() {
         _stopInterval();
+        _audio && _audio.pause();
     };
 
     _init();

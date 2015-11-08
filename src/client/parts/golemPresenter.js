@@ -53,10 +53,10 @@ IggjGolemPresenter = function (eventHandler) {
     };
 
     this.destroy = function() {
-        _audioLevelIncrease.stop();
-        _audioLevelDecrease.stop();
-        _audioGameOver.stop();
-        _audioGameWin.stop();
+        _audioLevelIncrease && _audioLevelIncrease.pause();
+        _audioLevelDecrease && _audioLevelDecrease.pause();
+        _audioGameOver &&_audioGameOver.pause();
+        _audioGameWin && _audioGameWin.pause();
     }
 
     _init();

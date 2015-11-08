@@ -32,5 +32,9 @@ var ItemHolder = function (eventHandler) {
         eventHandler('itemClicked').publish(this);
     };
 
+    this.destroy = function() {
+        _audio && _audio.pause();
+    }
+
     _init();
 };

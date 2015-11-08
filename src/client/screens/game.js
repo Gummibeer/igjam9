@@ -11,6 +11,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _myId = null;
     var _gameFinished = false;
     var that = this;
+    var _currentTask = null;
 
     var _init = function () {
         document.getElementById('game_screen').play(); // 159sec
@@ -96,6 +97,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
     var _onRoundEnded = function (roundResult) {
         console.log('round result :', roundResult)
+        _currentTask = null;
         if (roundResult) {
             _golemPresenter.increaseGolemStage();
         } else {
@@ -108,6 +110,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
     var _onRoundStarted = function (data) {
         _itemHolder.allowedToClick = true;
+        _currentTask = data;
+        console.log('TASK: ',_currentTask);
         _taskBar.setTask(data.task && data.task.message);
         _timer.reset();
         _timerInterval = setInterval(function () {
@@ -145,8 +149,11 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     this.destroy = function () {
+        document.getElementById('game_screen').pause();
+        _currentTask = null;
         _spellCrank.destroy();
         _golemPresenter.destroy();
+        _itemHolder.destroy();
         _socket.off('newItem');
         _socket.off('endRound');
         _socket.off('startRound');
@@ -159,7 +166,6 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _spellCrank = null;
         _taskBar = null;
         clearInterval(_timerInterval);
-        document.getElementById('game_screen').pause();
     };
 
     _init();

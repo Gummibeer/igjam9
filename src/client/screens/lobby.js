@@ -47,6 +47,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     };
 
     var _onPlayerLogoutClick = function () {
+        document.getElementById('lobby_screen').pause();
         console.log('logout and destroy session');
         clearInterval(_abortRequestTimeout);
         localStorage.removeItem('username');
@@ -64,6 +65,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _acceptRequest = function () {
         clearInterval(_abortRequestTimeout);
+        document.getElementById('lobby_screen').pause();
         _socket.emit('acceptRequest', _currentRequestId);
     };
 
@@ -132,6 +134,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     };
 
     this.destroy = function () {
+        document.getElementById('lobby_screen').pause();
         clearTimeout(_abortRequestTimeout);
         _socket.off('userList', _onLobbyJoined);
         _socket.off('requestAborted', _onRequestAborted);
@@ -141,7 +144,6 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
         _socket.off('requestAborted');
         _socket.off('gameRequest');
         _socket.off('disconnect');
-        document.getElementById('lobby_screen').pause(); // 122sec
     };
 
     _init();
