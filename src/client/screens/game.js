@@ -40,6 +40,10 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
             _socket.emit('spellCrankUsed', {match: gameData.match});
         });
 
+        eventHandler('spellBookUsed').subscribe(function () {
+            _socket.emit('spellBookUsed', {match: gameData.match});
+        });
+
         eventHandler('gameOver').subscribe(function () {
             console.log('gamescreen receiver game over');
             _gameFinished = true;
@@ -134,7 +138,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         $.each(itemData, function (key, value) {
             _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
         });
-        _wizardHolder = new IggjWizardsHolder();
+        _wizardHolder = new IggjWizardsHolder(eventHandler);
         _spellCrank = new IggjSpellCrank(eventHandler);
         _taskBar = new IggjTaskBar();
         _timer = new IggjTimer();

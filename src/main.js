@@ -92,6 +92,7 @@ io.on('connection', function (socket) {
             users: [id, socket.id],
             items: itemIds,
             openCranks: 0,
+            openSpells: 0,
             questions: {}
         };
 
@@ -109,18 +110,26 @@ io.on('connection', function (socket) {
         if (matches[matchId].ready == 2) {
             matches[matchId].ready = 0;
             do {
-                if(Math.random() <= 0.25) {
-                    matches[matchId].questions[0] = question.collection.getById(50);
+                var random = Math.random();
+                if(random <= 0.15) { // Spell Crank
+                    matches[matchId].questions[0] = question.collection.getById(25);
                     matches[matchId].openCranks++;
-                } else {
+                } else if(random <= 0.30) { // Spell Book
+                    matches[matchId].questions[0] = question.collection.getById(50);
+                    matches[matchId].openSpells++;
+                } else { // Item
                     matches[matchId].questions[0] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
                 }
             } while (typeof matches[matchId].questions[0] === 'undefined');
             do {
-                if(Math.random() <= 0.25) {
-                    matches[matchId].questions[1] = question.collection.getById(50);
+                var random = Math.random();
+                if(random <= 0.15) { // Spell Crank
+                    matches[matchId].questions[1] = question.collection.getById(25);
                     matches[matchId].openCranks++;
-                } else {
+                } else if(random <= 0.30) { // Spell Book
+                    matches[matchId].questions[1] = question.collection.getById(50);
+                    matches[matchId].openSpells++;
+                } else { // Item
                     matches[matchId].questions[1] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
                 }
             } while (typeof matches[matchId].questions[1] === 'undefined');
@@ -135,21 +144,23 @@ io.on('connection', function (socket) {
                 if(matches[matchId].openCranks > 0) {
                     matches[matchId].success = false;
                 }
+                if(matches[matchId].openSpells > 0) {
+                    matches[matchId].success = false;
+                }
 
                 if(!(matches[matchId].questions[0].success) && matches[matchId].questions[0].itemId != null){
                     matches[matchId].success = false;
                 }
-
                 if(!(matches[matchId].questions[1].success) && matches[matchId].questions[1].itemId != null){
                     matches[matchId].success = false;
                 }
 
                 io.to(matchId).emit('endRound', matches[matchId].success);
-
                 console.log(helpers.prefix() + colors.debug('round ended [%s] in match %s'), matches[matchId].success, matchId);
                 matches[matchId].success = true;
                 matches[matchId].responded = 0;
                 matches[matchId].openCranks = 0;
+                matches[matchId].openSpells = 0;
             }, 5500);
         }
     });
@@ -174,6 +185,12 @@ io.on('connection', function (socket) {
         matches[data.match].responded++;
         console.log(helpers.prefix() + colors.debug('user %s from match %s has used the spell crank'), socket.id, data.match);
         matches[data.match].openCranks--;
+    });
+
+    socket.on('spellBookUsed', function (data) {
+        matches[data.match].responded++;
+        console.log(helpers.prefix() + colors.debug('user %s from match %s has used the spell book'), socket.id, data.match);
+        matches[data.match].openSpells--;
     });
 
     socket.on('matchEnded', function (matchId) {
@@ -264,4 +281,5 @@ question.collection.add(11, 'Add a knocked out Vampire Tooth', 11);
 question.collection.add(12, 'Add a fresh cutted Gremmlin Head', 12);
 question.collection.add(13, 'Add an odd Sukkubus-Ass', 13);
 
-question.collection.add(50, 'Use the Spell Crank', null);
+question.collection.add(25, 'Use the Spell Crank', null);
+question.collection.add(50, 'Use the Spell Book', null);
