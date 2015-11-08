@@ -34,17 +34,20 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         });
 
         eventHandler('gameOver').subscribe(function(){
+            console.log('gamescreen receiver game over');
             console.log('gameJS received game over');
             _socket.emit('gameEnded', gameData.match);
             _showGameOver(function(){
+                _socket.emit('disconnect');
                 eventHandler('returnToLobby').publish();
             });
         });
 
-        eventHandler('gameOver').subscribe(function() {
+        eventHandler('gameWon').subscribe(function() {
             console.log('gameJS received game won');
             _socket.emit('gameEnded', gameData.match);
             _showGameWon(function(){
+                _socket.emit('disconnect');
                 eventHandler('returnToLobby').publish();
             });
         });
@@ -87,7 +90,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _onRoundStarted = function(data) {
         _madeADecisonThisRound = false;
         _itemHolder.allowedToClick = true;
-        _taskBar.setTask(data.task.message);
+        _taskBar.setTask(data.task && data.task.message);
     };
 
     var _createGameScreenElements = function () {
@@ -116,11 +119,16 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     this.destroy = function () {
-        _socket.off('newItem',function(value){
-            _itemHolder.addItem(new IggjItem(value.item.id, value.item.img, value.item.name));
-        });
-        _socket.off('endRound',_onRoundEnded);
-        _socket.off('startRound',_onRoundStarted);
+        _socket.off('newItem');
+        _socket.off('endRound');
+        _socket.off('startRound');
+        eventHandler('itemClicked').unsubscribe();
+        eventHandler('gameOver').unsubscribe();
+        eventHandler('gameWon').unsubscribe();
+        _wizardHolder = null;
+        _golemPresenter = null;
+        _spellCrank = null;
+        _taskBar = null;
     };
 
     _init();

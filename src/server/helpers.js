@@ -19,8 +19,8 @@ exports.getUsersList = function (users) {
 };
 
 exports.sortByName = function (a, b) {
-    var aName = a.name.toLowerCase();
-    var bName = b.name.toLowerCase();
+    var aName = a.name && a.name.toLowerCase();
+    var bName = b.name && b.name.toLowerCase();
     return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 };
 

@@ -3,6 +3,8 @@ var IggjGame = function () {
     var _networkSocket = null;
     var _eventHandler = null;
     var _stageHandler = null;
+    var _currentgame = null;
+    var _currentLobbyScreen = null;
 
     var _init = function () {
         console.log('game init started');
@@ -22,20 +24,24 @@ var IggjGame = function () {
     };
 
     var _createLobby = function () {
-        var lobbyScreen = new IggjLobbyScreen(_stageHandler, _eventHandler, _networkSocket);
+        topics = {};
+        _currentLobbyScreen = new IggjLobbyScreen(_stageHandler, _eventHandler, _networkSocket);
         var socket = _networkSocket.getNetworkSocket();
+        socket.off('initGame');
         socket.on('initGame', function (data) {
             console.log('init game ', data);
-            lobbyScreen.destroy();
+            _currentLobbyScreen &&_currentLobbyScreen.destroy();
+            _currentLobbyScreen = null;
             _createGameScreen(data);
         });
     };
 
     var _createGameScreen = function (data) {
         console.log('start game screen');
-        var game = new IggjGameScreen(_stageHandler, _eventHandler, _networkSocket, data);
+        _currentgame = new IggjGameScreen(_stageHandler, _eventHandler, _networkSocket, data);
         _eventHandler('returnToLobby').subscribe(function () {
-            game.destroy();
+            _currentgame && _currentgame.destroy();
+            _currentgame = null;
             _createLobby();
         });
     };

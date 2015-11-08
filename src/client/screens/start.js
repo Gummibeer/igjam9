@@ -2,7 +2,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _startScreen;
     var KEY_ENTER = 13;
-    var FRAME_DURATION = 10000;
+    var FRAME_DURATION = 1000;
 
     var _init = function () {
         if (localStorage.getItem('username')) {

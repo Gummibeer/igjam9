@@ -4,13 +4,13 @@ IggjGolemPresenter = function(eventHandler) {
     var _currentGolemStage = 0;
     var _stageToWin = 6;
     var stagesImg = [
-        'src/img/dolem_final_stufe_0.png',
-        'src/img/dolem_final_stufe_1.png',
-        'src/img/dolem_final_stufe_2.png',
-        'src/img/dolem_final_stufe_3.png',
-        'src/img/dolem_final_stufe_4.png',
-        'src/img/dolem_final_stufe_5.png',
-        'src/img/dolem_final_stufe_6.png'
+        'src/img/golem/0.png',
+        'src/img/golem/1.png',
+        'src/img/golem/2.png',
+        'src/img/golem/3.png',
+        'src/img/golem/4.png',
+        'src/img/golem/5.png',
+        'src/img/golem/6.png'
     ];
 
     var _init = function() {
@@ -37,6 +37,7 @@ IggjGolemPresenter = function(eventHandler) {
         _currentGolemStage++;
         _$golem.css('background-image', 'url('+stagesImg[_currentGolemStage]+')');
         if (_currentGolemStage === _stageToWin) {
+            eventHandler('gameWon').publish()
             console.log('win');
         }
     };
