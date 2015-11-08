@@ -2,7 +2,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
 
     var _startScreen;
     var KEY_ENTER = 13;
-    var FRAME_DURATION = 1000;
+    var FRAME_DURATION = 3000;
 
     var _init = function () {
         if (localStorage.getItem('username')) {
@@ -62,6 +62,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
     };
 
     var _createStartScreen = function () {
+        document.getElementById('intro_screen').play(); // 9sec
         var logo = _createLogo();
         var input = _createInput();
         var inputDiv = _createInputDiv();
@@ -86,6 +87,7 @@ var IggjStartScreen = function (stageHandler, eventHandler) {
                         setTimeout(function () {
                             _startScreen.style.boxShadow = 'inset 0 0 5000px 5000px rgba(0,0,0,1)';
                             setTimeout(function () {
+                                document.getElementById('login_screen').play(); // 10sec
                                 $textHolder.text('');
                                 _startScreen.style.backgroundImage = 'url(../../src/img/bg_username.jpg)';
                                 _startScreen.style.boxShadow = 'none';
