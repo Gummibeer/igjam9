@@ -34,10 +34,16 @@
 #spell-book {
   width : 100%;
   height: 80%;
+  -webkit-transition: background-image 0.2s;
+  transition: background-image 0.2s;
   background-image: url(../img/buch.png);
   background-size: contain;
   background-position: bottom center;
   background-repeat: no-repeat;
+
+  &.active {
+    background-image: url(../img/buch_active.png);
+  }
 }
 
 #spellbook-container {

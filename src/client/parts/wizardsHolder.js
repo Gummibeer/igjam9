@@ -1,4 +1,4 @@
-var IggjWizardsHolder = function () {
+var IggjWizardsHolder = function (eventHandler) {
 
     var _$mainContainer = null;
     var _$spellBook = null;
@@ -18,6 +18,13 @@ var IggjWizardsHolder = function () {
         _$mainContainer = $('<div id="spellbook-container"></div>');
         _$spellBook = $('<div id="spell-book"></div>');
         _$mainContainer.append(_$spellBook);
+        _$spellBook.on('click', function () {
+            eventHandler('spellBookUsed').publish();
+            _$spellBook.addClass('active');
+            setTimeout(function () {
+                _$spellBook.removeClass('active');
+            }, 500);
+        });
     };
 
     this.$getWizardsHolder = function () {
