@@ -23,7 +23,7 @@ var IggjWizardsHolder = function (eventHandler) {
             _$spellBook.addClass('active');
             setTimeout(function () {
                 _$spellBook.removeClass('active');
-            }, 500);
+            }, 300);
         });
     };
 
