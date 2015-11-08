@@ -5,6 +5,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "express": "^4.10.2",
+    "forever": "^0.15.1",
     "gulp": "^3.9.0",
     "gulp-less": "^3.0.3",
     "gulp-minify-css": "^1.2.1",
