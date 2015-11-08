@@ -132,7 +132,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     };
 
     this.destroy = function () {
-        clearInterval(_abortRequestTimeout);
+        clearTimeout(_abortRequestTimeout);
         _socket.off('userList', _onLobbyJoined);
         _socket.off('requestAborted', _onRequestAborted);
         _socket.off('gameRequest', _onGameRequest);
