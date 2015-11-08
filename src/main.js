@@ -124,7 +124,6 @@ io.on('connection', function (socket) {
                     matches[matchId].questions[1] = question.collection.getByItem(matches[matchId].items[Math.floor(Math.random() * matches[matchId].items.length - 1)]);
                 }
             } while (typeof matches[matchId].questions[1] === 'undefined');
-            console.log('open cranks', matches[matchId].openCranks);
             for (var key in matches[matchId].users) {
                 users[matches[matchId].users[key]].socket.emit('startRound', {task: matches[matchId].questions[key]});
             }
