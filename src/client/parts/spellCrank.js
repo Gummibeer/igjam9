@@ -13,6 +13,7 @@ var IggjSpellCrank = function (eventHandler) {
     var _createSpellCrank = function () {
         _$mainContainer = $('<div id="spell-crank" class ="spellcrank-1"></div>');
         _$mainContainer.on('click', function () {
+            $(this).clearQueue();
             _stopInterval();
             _nextBackground();
         });
@@ -38,6 +39,7 @@ var IggjSpellCrank = function (eventHandler) {
     };
 
     var _startInterval = function () {
+        _stopInterval();
         _interval = setInterval(_nextBackground, INTERVAL);
     };
 
@@ -47,6 +49,10 @@ var IggjSpellCrank = function (eventHandler) {
 
     this.$getSpellCrank = function () {
         return _$mainContainer;
+    };
+
+    this.destroy = function() {
+        _stopInterval();
     };
 
     _init();

@@ -52,5 +52,12 @@ IggjGolemPresenter = function (eventHandler) {
         }
     };
 
+    this.destroy = function() {
+        _audioLevelIncrease.stop();
+        _audioLevelDecrease.stop();
+        _audioGameOver.stop();
+        _audioGameWin.stop();
+    }
+
     _init();
 };

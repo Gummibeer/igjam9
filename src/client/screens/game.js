@@ -145,6 +145,8 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     };
 
     this.destroy = function () {
+        _spellCrank.destroy();
+        _golemPresenter.destroy();
         _socket.off('newItem');
         _socket.off('endRound');
         _socket.off('startRound');
@@ -156,6 +158,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _golemPresenter = null;
         _spellCrank = null;
         _taskBar = null;
+        clearInterval(_timerInterval);
         document.getElementById('game_screen').pause();
     };
 

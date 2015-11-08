@@ -48,6 +48,5 @@ IggjTimer = function () {
 
     };
 
-
     _init();
 };
