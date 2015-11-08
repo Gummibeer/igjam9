@@ -32,11 +32,20 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
             $(element).css('background-Image', 'none');
             $(element).removeAttr('item-id');
             $(element).off('click');
+            if(itemId === _currentTask.task.id) {
+                _taskBar.setTask('You have succeded!');
+            } else {
+                _taskBar.setTask('This was wrong!');
+            }
             _socket.emit('itemSelected', {match: gameData.match, itemId: itemId});
         });
 
         eventHandler('spellCrankUsed').subscribe(function () {
-
+            if(_currentTask.task.message === 'Use the Spell Crank') {
+                _taskBar.setTask('You have succeded!');
+            } else {
+                _taskBar.setTask('This was wrong!');
+            }
             _socket.emit('spellCrankUsed', {match: gameData.match});
         });
 
