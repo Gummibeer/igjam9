@@ -13,6 +13,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
     var _abortRequestTimeout = null;
 
     var _init = function () {
+        document.getElementById('lobby_screen').play(); // 122sec
         console.log('CREATE LOBBY');
         _myId = localStorage.getItem('userid');
         _myName = localStorage.getItem('username')
