@@ -21,6 +21,7 @@ var IggjWizardsHolder = function() {
 
     var _createWizardsHolder = function() {
         _$mainContainer = $('<div id="spellbook-container"></div>');
+        _$spellBook = $('<div id="spell-book"></div>');
         _$spellInput = $('<input id="spell-input" type = "text" />');
         _$spellInput.on('keypress', function (e) {
             if (e.keyCode === KEY_ENTER) {
@@ -33,9 +34,8 @@ var IggjWizardsHolder = function() {
                 document.getElementById('spell-input').value = '';
             }
         });
-        _$spellBook = $('<div id="spell-book"></div>');
-        _$mainContainer.append(_$spellInput);
         _$mainContainer.append(_$spellBook);
+        _$mainContainer.append(_$spellInput);
     };
 
     this.$getWizardsHolder = function() {
