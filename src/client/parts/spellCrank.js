@@ -13,6 +13,7 @@ var IggjSpellCrank = function (eventHandler) {
     var _createSpellCrank = function () {
         _$mainContainer = $('<div id="spell-crank" class ="spellcrank-1"></div>');
         _$mainContainer.on('click', function () {
+            _stopInterval();
             _nextBackground();
         });
         _$mainContainer.on('mousedown', function () {
