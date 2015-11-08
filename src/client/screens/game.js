@@ -23,46 +23,51 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _myId = _socket.id;
         _createGameScreenElements();
         _initListeners();
-        _socket.emit('waitingForRound',gameData.match);
+        _socket.emit('waitingForRound', gameData.match);
     };
 
-    var _initListeners = function() {
-        eventHandler('itemClicked').subscribe(function(itemId){
-            if(_roundDecisionCounter < 2){
-                _socket.emit('itemSelected', {match:gameData.match, itemId: itemId});
+    var _initListeners = function () {
+        eventHandler('itemClicked').subscribe(function (element) {
+            console.log(_roundDecisionCounter);
+            if (_roundDecisionCounter < 2) {
+                console.log('removing item with id', $(element).attr('item-id'));
+                var itemId = $(element).attr('item-id');
+                $(element).attr('data-empty', true);
+                $(element).css('background-Image', 'none');
+                $(element).removeAttr('item-id');
+                $(element).off('click');
+                _socket.emit('itemSelected', {match: gameData.match, itemId: itemId});
                 _roundDecisionCounter++;
-            } else {
-                _itemHolder.allowedToClick = false;
             }
         });
 
-        eventHandler('gameOver').subscribe(function(){
+        eventHandler('gameOver').subscribe(function () {
             console.log('gamescreen receiver game over');
             console.log('gameJS received game over');
             _socket.emit('gameEnded', gameData.match);
-            _showGameOver(function(){
+            _showGameOver(function () {
                 _socket.emit('disconnect');
                 eventHandler('returnToLobby').publish();
             });
         });
 
-        eventHandler('gameWon').subscribe(function() {
+        eventHandler('gameWon').subscribe(function () {
             console.log('gameJS received game won');
             _socket.emit('gameEnded', gameData.match);
-            _showGameWon(function(){
+            _showGameWon(function () {
                 _socket.emit('disconnect');
                 eventHandler('returnToLobby').publish();
             });
         });
 
-        _socket.on('newItem',function(value){
+        _socket.on('newItem', function (value) {
             _itemHolder.addItem(new IggjItem(value.item.id, value.item.img, value.item.name));
         });
-        _socket.on('endRound',_onRoundEnded);
-        _socket.on('startRound',_onRoundStarted);
+        _socket.on('endRound', _onRoundEnded);
+        _socket.on('startRound', _onRoundStarted);
     };
 
-    var _showGameOver = function(callback) {
+    var _showGameOver = function (callback) {
         _$gameMain.remove();
         that.destroy();
         var $gameOver = $('<div id="game-over"></div>');
@@ -71,7 +76,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         setTimeout(callback, 5000);
     };
 
-    var _showGameWon = function(callback) {
+    var _showGameWon = function (callback) {
         _$gameMain.remove();
         that.destroy();
         var $gameWon = $('<div id="game-won"></div>');
@@ -80,24 +85,24 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         setTimeout(callback, 5000);
     };
 
-    var _onRoundEnded = function(roundResult) {
+    var _onRoundEnded = function (roundResult) {
         console.log('round result :', roundResult)
-        if(roundResult) {
+        if (roundResult) {
             _golemPresenter.increaseGolemStage();
         } else {
             _golemPresenter.decreaseGolemStage();
         }
         clearInterval(_timerInterval);
         _timer.reset();
-        _socket.emit('waitingForRound',gameData.match);
+        _socket.emit('waitingForRound', gameData.match);
     };
 
-    var _onRoundStarted = function(data) {
+    var _onRoundStarted = function (data) {
         _roundDecisionCounter = 0;
         _itemHolder.allowedToClick = true;
         _taskBar.setTask(data.task && data.task.message);
         _timer.reset();
-        _timerInterval  = setInterval(function(){
+        _timerInterval = setInterval(function () {
             _timer.decreaseRunes();
         }, 510);
     };
@@ -106,12 +111,12 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         var itemData = {};
         _$gameMain = $('<div id="game-main-frame"></div>');
         _itemHolder = new ItemHolder(eventHandler);
-        if(gameData.user1.id === _socket.id){
+        if (gameData.user1.id === _socket.id) {
             itemData = gameData.user1Items;
         } else {
             itemData = gameData.user2Items;
         }
-        $.each(itemData,function(key, value){
+        $.each(itemData, function (key, value) {
             _itemHolder.addItem(new IggjItem(value.id, value.img, value.name));
         });
         _wizardHolder = new IggjWizardsHolder();
