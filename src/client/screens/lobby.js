@@ -46,6 +46,7 @@ IggjLobbyScreen = function (stageHandler, eventHandler, networkHandler) {
 
     var _onPlayerLogoutClick = function () {
         console.log('logout and destroy session');
+        localStorage.removeItem('username');
         _socket.emit('disconnect');
     };
 
