@@ -26,7 +26,7 @@ exports.sortByName = function (a, b) {
 
 exports.dt = function () {
     var date = new Date();
-    return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2) + '.' + ('0' + date.getMilliseconds()).slice(-3);
+    return ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2) + ':' + ('0' + date.getSeconds()).slice(-2) + '.' + ('00' + date.getMilliseconds()).slice(-3);
 };
 
 exports.prefix = function () {

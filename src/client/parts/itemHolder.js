@@ -1,6 +1,7 @@
 var ItemHolder = function (eventHandler) {
 
     var $shelf = null;
+    var _audio = document.getElementById('item_click');
 
     var _init = function () {
         $shelf = $('<div id="game-itemholder"></div>');
@@ -27,6 +28,7 @@ var ItemHolder = function (eventHandler) {
     };
 
     var _onItemClick = function () {
+        _audio.play();
         eventHandler('itemClicked').publish(this);
     };
 

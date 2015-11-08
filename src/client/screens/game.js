@@ -13,6 +13,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var that = this;
 
     var _init = function () {
+        document.getElementById('game_screen').play(); // 159sec
         stageHandler.changeScreen($('<div></div>'));
         console.log('CREATE GAME SCREEN');
         _socket = networkHandler.getNetworkSocket();
@@ -155,6 +156,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _golemPresenter = null;
         _spellCrank = null;
         _taskBar = null;
+        document.getElementById('game_screen').pause();
     };
 
     _init();

@@ -3,13 +3,17 @@ IggjGolemPresenter = function (eventHandler) {
     var _$golem = null;
     var _currentGolemStage = 0;
     var _stageToWin = 7;
+    var _audioLevelIncrease = document.getElementById('upgrade');
+    var _audioGameWin = document.getElementById('game_win');
+    var _audioLevelDecrease = document.getElementById('round_lost');
+    var _audioGameOver = document.getElementById('game_over');
     var stagesImg = [
         'src/img/golem/0.png',
         'src/img/golem/1.png',
         'src/img/golem/2.png',
         'src/img/golem/3.png',
         'src/img/golem/4.png',
-        'src/img/golem/5_anim.gif',
+        'src/img/golem/5.png',
         'src/img/golem/6.png'
     ];
 
@@ -28,8 +32,11 @@ IggjGolemPresenter = function (eventHandler) {
         _currentGolemStage--;
         _$golem.css('background-image', 'url(' + stagesImg[_currentGolemStage] + ')');
         if (_currentGolemStage < 0) {
+            _audioGameOver.play();
             eventHandler('gameOver').publish();
             console.log('loose');
+        } else {
+            _audioLevelDecrease.play();
         }
     };
 
@@ -37,8 +44,11 @@ IggjGolemPresenter = function (eventHandler) {
         _currentGolemStage++;
         _$golem.css('background-image', 'url(' + stagesImg[_currentGolemStage] + ')');
         if (_currentGolemStage === _stageToWin) {
+            _audioGameWin.play();
             eventHandler('gameWon').publish()
             console.log('win');
+        } else {
+            _audioLevelIncrease.play();
         }
     };
 
