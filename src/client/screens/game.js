@@ -13,10 +13,6 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _gameFinished = false;
     var that = this;
 
-    //TODO: nur einmal klickbar pro round (ckeck)
-    //TODO: golem zusammen bauen (check)
-    //TODO:matchEnded senden return to Lobby (check)
-
     var _init = function () {
         stageHandler.changeScreen($('<div></div>'));
         console.log('CREATE GAME SCREEN');
@@ -79,13 +75,14 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
     var _onDisconnected = function() {
         console.log('Game: Disconnected / Kicked');
         var $gameOver = $('<div id="game-over"></div>');
-        $gameOver.css('background-image', 'url(src/img/bg_loose.jpg)')
+        $gameOver.css('background-image', 'url(src/img/spiel_weg_screen.jpg)')
         stageHandler.changeScreen($gameOver);
         setTimeout(function(){eventHandler('returnToLobby').publish()}, 5000);
     };
 
     var _showGameOver = function (callback) {
         _$gameMain.remove();
+        clearInterval(_timerInterval)
         that.destroy();
         var $gameOver = $('<div id="game-over"></div>');
         $gameOver.css('background-image', 'url(src/img/bg_loose.jpg)')
@@ -95,6 +92,7 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
 
     var _showGameWon = function (callback) {
         _$gameMain.remove();
+        clearInterval(_timerInterval)
         that.destroy();
         var $gameWon = $('<div id="game-won"></div>');
         $gameWon.css('background-image', 'url(src/img/bg_win.jpg)')
@@ -120,7 +118,9 @@ var IggjGameScreen = function (stageHandler, eventHandler, networkHandler, gameD
         _taskBar.setTask(data.task && data.task.message);
         _timer.reset();
         _timerInterval = setInterval(function () {
-            _timer.decreaseRunes();
+            if(!_gameFinished) {
+                _timer.decreaseRunes();
+            }
         }, 510);
     };
 
